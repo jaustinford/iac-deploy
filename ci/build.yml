@@ -1,0 +1,17 @@
+---
+.trigger_rules: &trigger_rules
+  - terraform/*
+  - terraform/*/*
+  - terraform/*/*/*
+  - Dockerfile
+
+build_docker_terraform:
+  stage: integrate
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes: *trigger_rules
+  script:
+    - |
+      DOCKER_BUILDKIT=1 docker build . \
+          --tag "$ELISE_CI_NEXUS_HOSTED/elise/elysianskies-linode:$CI_COMMIT_REF_SLUG"
+    - docker push "$ELISE_CI_NEXUS_HOSTED/elise/elysianskies-linode:$CI_COMMIT_REF_SLUG"
