@@ -6,7 +6,7 @@ firewall_ingresses = [
         name          = "ssh"
         external_port = "22"
         sources       = [
-            "174.51.101.241/32"
+            "174.51.140.247/32"
         ]
     },
     {
