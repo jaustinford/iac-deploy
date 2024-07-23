@@ -1,5 +1,6 @@
 ---
 stages:
+  - test
   - integrate
   - deploy
 
@@ -19,6 +20,7 @@ variables:
   TF_VAR_linode_token: $ELISE_PROJECT_LINODE_TOKEN
 
 include:
+  - template: Jobs/Secret-Detection.gitlab-ci.yml
   - local: ci/build.yml
   - local: ci/manual.yml
   - local: ci/scheduled.yml

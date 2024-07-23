@@ -8,6 +8,8 @@ build_docker_terraform:
         - terraform/*/*
         - terraform/*/*/*
         - Dockerfile
+  needs:
+    - secret_detection
   script:
     - |
       DOCKER_BUILDKIT=1 docker build . \
