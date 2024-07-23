@@ -1,15 +1,13 @@
 ---
-.trigger_rules: &trigger_rules
-  - terraform/*
-  - terraform/*/*
-  - terraform/*/*/*
-  - Dockerfile
-
 build_docker_terraform:
   stage: integrate
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
-      changes: *trigger_rules
+      changes:
+        - terraform/*
+        - terraform/*/*
+        - terraform/*/*/*
+        - Dockerfile
   script:
     - |
       DOCKER_BUILDKIT=1 docker build . \

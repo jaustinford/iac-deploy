@@ -1,6 +1,6 @@
 ---
 .require_ssl_renew_vars: &require_ssl_renew_vars
-  $ELISE_SCHEDULE_SSL_RENEW
+  $ELISE_SCHEDULE_SSL_RENEW && $CI_PIPELINE_SOURCE == "schedule"
 
 .terraform_init: &terraform_init
   - |

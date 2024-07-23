@@ -1,6 +1,6 @@
 ---
 .require_terraform_vars: &require_terraform_vars
-  $ELISE_PIPELINE_MODULE_NAME && $ELISE_PIPELINE_VAR_FILE_NAME
+  $ELISE_PIPELINE_MODULE_NAME && $ELISE_PIPELINE_VAR_FILE_NAME && $CI_PIPELINE_SOURCE == "web"
 
 .terraform_init: &terraform_init
   - |
