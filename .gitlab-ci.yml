@@ -17,7 +17,7 @@ variables:
 
   ELISE_CI_NEXUS_HOSTED: docker01-teine.home.elysianskies.com:32501
   ELISE_CI_GITLAB_ENDPOINT: docker02-teine.home.elysianskies.com:32512
-  TF_VAR_linode_token: $ELISE_PROJECT_LINODE_TOKEN
+  TF_VAR_linode_token: $ELISE_GROUP_LINODE_TOKEN
 
 include:
   - template: Jobs/Secret-Detection.gitlab-ci.yml
