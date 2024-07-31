@@ -1,13 +1,4 @@
 ---
-stages:
-  - test
-  - integrate
-  - deploy
-
-default:
-  tags:
-    - elysianskies_runner
-
 variables:
   ELISE_PIPELINE_MODULE_NAME:
     description: name of folder in 'terraform/modules'
@@ -15,12 +6,7 @@ variables:
   ELISE_PIPELINE_VAR_FILE_NAME:
     description: name of folder and file in 'terraform/elysianskies'
 
-  ELISE_CI_NEXUS_HOSTED: docker01-teine.home.elysianskies.com:32501
-  ELISE_CI_GITLAB_ENDPOINT: docker02-teine.home.elysianskies.com:32512
-  TF_VAR_linode_token: $ELISE_GROUP_LINODE_TOKEN
-
 include:
-  - template: Jobs/Secret-Detection.gitlab-ci.yml
-  - local: ci/build.yml
-  - local: ci/manual.yml
-  - local: ci/scheduled.yml
+  - project: elise/shared-cicd
+    ref: main
+    file: .gitlab-ci.yml
