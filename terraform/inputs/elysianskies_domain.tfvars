@@ -1,7 +1,7 @@
 domain_domain    = "elysianskies.com"
 domain_soa_email = "j.austin.ford@gmail.com"
 
-instance_labels  = [
+instance_labels = [
     "portal"
 ]
 
