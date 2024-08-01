@@ -1,6 +1,6 @@
 output "root_password_id" {
   description = "root_password_id"
-  value       = random_password.root_password.id
+  value       = random_password.root_password.result
   sensitive   = true
 }
 

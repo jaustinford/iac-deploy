@@ -9,7 +9,7 @@ resource "linode_instance" "instance" {
   region          = var.instance_region
   type            = var.instance_type
   authorized_keys = var.instance_authorized_keys
-  root_pass       = random_password.root_password.id
+  root_pass       = random_password.root_password.result
   private_ip      = var.instance_private_ip
   booted          = var.instance_booted
 }
