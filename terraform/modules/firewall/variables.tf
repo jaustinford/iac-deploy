@@ -17,3 +17,7 @@ variable "firewall_ingresses" {
     )
   )
 }
+
+variable "test" {
+  type = string
+}
