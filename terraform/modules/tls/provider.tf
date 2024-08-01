@@ -8,10 +8,13 @@ terraform {
       source  = "vancluever/acme"
       version = "~> 2.5.3"
     }
+
+    tls = {
+      source  = "hashicorp/tls"
+      version = "4.0.5"
+    }
   }
 }
-
-provider "tls" {}
 
 provider "acme" {
   server_url = "https://acme-v02.api.letsencrypt.org/directory"
