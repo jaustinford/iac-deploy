@@ -1,3 +1,4 @@
 output "domain_status" {
-  value = linode_domain.domain.status
+  description = "domain_status"
+  value       = linode_domain.domain.status
 }

@@ -1,12 +1,15 @@
 output "root_password_id" {
-  value     = random_password.root_password.id
-  sensitive = true
+  description = "root_password_id"
+  value       = random_password.root_password.id
+  sensitive   = true
 }
 
 output "instance_ip_address" {
-  value = linode_instance.instance.ip_address
+  description = "instance_ip_address"
+  value       = linode_instance.instance.ip_address
 }
 
 output "firewall_id" {
-  value = linode_firewall.firewall.id
+  description = "firewall_id"
+  value       = linode_firewall.firewall.id
 }
