@@ -4,9 +4,9 @@
       -chdir="/terraform/modules/$ELISE_PIPELINE_MODULE_NAME" \
       init \
       -reconfigure \
-      -backend-config=address="http://$ELISE_CI_GITLAB_ENDPOINT/api/v4/projects/2/terraform/state/$(echo $ELISE_PIPELINE_VAR_FILE_NAME | sed 's/\//_/g')" \
-      -backend-config=lock_address="http://$ELISE_CI_GITLAB_ENDPOINT/api/v4/projects/2/terraform/state/$(echo $ELISE_PIPELINE_VAR_FILE_NAME | sed 's/\//_/g')/lock" \
-      -backend-config=unlock_address="http://$ELISE_CI_GITLAB_ENDPOINT/api/v4/projects/2/terraform/state/$(echo $ELISE_PIPELINE_VAR_FILE_NAME | sed 's/\//_/g')/lock" \
+      -backend-config=address="http://$ELISE_CI_GITLAB_ENDPOINT/api/v4/projects/2/terraform/state/$(echo $ELISE_PIPELINE_INPUT_NAME | sed 's/\//_/g')" \
+      -backend-config=lock_address="http://$ELISE_CI_GITLAB_ENDPOINT/api/v4/projects/2/terraform/state/$(echo $ELISE_PIPELINE_INPUT_NAME | sed 's/\//_/g')/lock" \
+      -backend-config=unlock_address="http://$ELISE_CI_GITLAB_ENDPOINT/api/v4/projects/2/terraform/state/$(echo $ELISE_PIPELINE_INPUT_NAME | sed 's/\//_/g')/lock" \
       -backend-config=lock_method="POST" \
       -backend-config=unlock_method="DELETE" \
       -backend-config=retry_wait_min="5" \
@@ -20,7 +20,7 @@ ssl_renew:
   stage: deploy
   variables:
     ELISE_PIPELINE_MODULE_NAME: tls
-    ELISE_PIPELINE_VAR_FILE_NAME: certificates/portal_nginx
+    ELISE_PIPELINE_INPUT_NAME: portal_nginx
   needs:
     - secret_detection
   script:
@@ -29,7 +29,7 @@ ssl_renew:
       terraform \
         -chdir="/terraform/modules/$ELISE_PIPELINE_MODULE_NAME" \
         apply -auto-approve \
-        -var-file="/terraform/elysianskies/$ELISE_PIPELINE_VAR_FILE_NAME.tfvars"
+        -var-file="/terraform/elysianskies/$ELISE_PIPELINE_INPUT_NAME.tfvars"
 
 include:
   - project: elise/shared-cicd

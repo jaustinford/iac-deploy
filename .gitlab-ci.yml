@@ -3,7 +3,7 @@ variables:
   ELISE_PIPELINE_MODULE_NAME:
     description: name of folder in 'terraform/modules'
 
-  ELISE_PIPELINE_VAR_FILE_NAME:
+  ELISE_PIPELINE_INPUT_NAME:
     description: name of folder and file in 'terraform/elysianskies'
 
 include:

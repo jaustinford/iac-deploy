@@ -2,9 +2,9 @@ resource "linode_firewall" "firewall" {
   label           = "firewall"
   inbound_policy  = "DROP"
   outbound_policy = "ACCEPT"
-  linodes         = [data.linode_instances.instance.instances[0].id]
+
   dynamic "inbound" {
-    for_each = var.firewall_ingresses
+    for_each = var.firewall_inbound
     content {
       label    = inbound.value["name"]
       action   = "ACCEPT"

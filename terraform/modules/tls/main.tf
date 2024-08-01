@@ -1,25 +1,22 @@
 resource "tls_private_key" "private_key" {
   algorithm = "RSA"
+  rsa_bits  = var.private_key_rsa_bits
 }
 
 resource "acme_registration" "registration" {
   account_key_pem = tls_private_key.private_key.private_key_pem
-  email_address   = var.certificate_email
+  email_address   = var.registration_email_address
 }
 
-resource "acme_certificate" "tls" {
+resource "acme_certificate" "certificate" {
   account_key_pem           = acme_registration.registration.account_key_pem
-  common_name               = var.certificate_cn
-  subject_alternative_names = var.certificate_sans
+  common_name               = var.certificate_common_name
+  subject_alternative_names = var.certificate_subject_alternative_names
+  min_days_remaining        = var.certificate_min_days_remaining
 
   dns_challenge {
     provider = "linode"
-    config   = {
-      LINODE_TOKEN = var.linode_token
-    }
   }
 
-  depends_on = [
-    acme_registration.registration
-  ]
+  depends_on = [acme_registration.registration]
 }

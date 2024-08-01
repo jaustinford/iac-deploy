@@ -1,10 +1,11 @@
-domain_name      = "elysianskies.com"
+domain_domain    = "elysianskies.com"
 domain_soa_email = "j.austin.ford@gmail.com"
-domain_dns_ttl   = 300
+
 instance_labels  = [
     "portal"
 ]
-domain_records   = [
+
+domain_records = [
     {
         name        = "home"
         record_type = "CNAME"

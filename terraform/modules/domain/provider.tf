@@ -1,4 +1,6 @@
 terraform {
+  backend "http" {}
+
   required_providers {
     linode = {
       source  = "linode/linode"
@@ -7,6 +9,4 @@ terraform {
   }
 }
 
-provider "linode" {
-  token = var.linode_token
-}
+provider "linode" {}
