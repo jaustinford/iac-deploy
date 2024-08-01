@@ -29,7 +29,7 @@ ssl_renew:
       terraform \
         -chdir="/terraform/modules/$ELISE_PIPELINE_MODULE_NAME" \
         apply -auto-approve \
-        -var-file="/terraform/elysianskies/$ELISE_PIPELINE_INPUT_NAME.tfvars"
+        -var-file="/terraform/inputs/$ELISE_PIPELINE_INPUT_NAME.tfvars"
 
 include:
   - project: elise/shared-cicd
