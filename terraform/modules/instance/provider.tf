@@ -11,4 +11,6 @@ terraform {
   }
 }
 
+provider "random" {}
+
 provider "linode" {}
