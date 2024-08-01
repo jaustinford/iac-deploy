@@ -12,7 +12,4 @@ resource "linode_instance" "instance" {
   root_pass       = random_password.root_password.id
   private_ip      = var.instance_private_ip
   booted          = var.instance_booted
-  firewall_id     = linode_firewall.firewall.id
-
-  depends_on = [linode_firewall.firewall]
 }
