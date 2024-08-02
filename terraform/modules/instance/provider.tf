@@ -1,8 +1,6 @@
 terraform {
   required_version = "1.8.2"
 
-  backend "http" {}
-
   required_providers {
     linode = {
       source  = "linode/linode"
