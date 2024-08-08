@@ -1,31 +1,9 @@
+include "root" {
+  path = find_in_parent_folders()
+}
+
 terraform {
   source = "../../modules//instance"
-}
-
-generate "backend" {
-  path      = "backend.tf"
-  if_exists = "overwrite_terragrunt"
-  contents  = <<EOF
-terraform {
-  required_version = "1.9.3"
-
-  backend "local" {
-    path = "/tfstate/portal_instance.json"
-  }
-
-  required_providers {
-    linode = {
-      source  = "linode/linode"
-      version = "1.27.0"
-    }
-
-    random = {
-      source  = "hashicorp/random"
-      version = "3.6.1"
-    }
-  }
-}
-EOF
 }
 
 inputs = {
