@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM hashicorp/terraform:1.8.2
+FROM alpine/terragrunt:1.9.3
 
 WORKDIR /terraform
 
