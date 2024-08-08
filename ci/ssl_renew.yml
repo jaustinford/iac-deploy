@@ -7,7 +7,9 @@ ssl_renew:
   needs:
     - secret_detection
   script:
-    - terragrunt run-all apply
+    - |
+      terragrunt run-all apply \
+          --terragrunt-non-interactive
 
 include:
   - project: elise/shared-cicd
