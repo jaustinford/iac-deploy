@@ -1,35 +1,13 @@
-.terraform_init: &terraform_init
-  - |
-    terraform \
-      -chdir="/terraform/modules/$ELISE_PIPELINE_MODULE_NAME" \
-      init \
-      -reconfigure \
-      -backend-config=address="http://$ELISE_CI_GITLAB_ENDPOINT/api/v4/projects/2/terraform/state/$(echo $ELISE_PIPELINE_INPUT_NAME | sed 's/\//_/g')" \
-      -backend-config=lock_address="http://$ELISE_CI_GITLAB_ENDPOINT/api/v4/projects/2/terraform/state/$(echo $ELISE_PIPELINE_INPUT_NAME | sed 's/\//_/g')/lock" \
-      -backend-config=unlock_address="http://$ELISE_CI_GITLAB_ENDPOINT/api/v4/projects/2/terraform/state/$(echo $ELISE_PIPELINE_INPUT_NAME | sed 's/\//_/g')/lock" \
-      -backend-config=lock_method="POST" \
-      -backend-config=unlock_method="DELETE" \
-      -backend-config=retry_wait_min="5" \
-      -backend-config=username="gitlab-ci-token" \
-      -backend-config=password="$CI_JOB_TOKEN"
-
+---
 ssl_renew:
   image:
     name: $ELISE_CI_NEXUS_DOCKER_HOSTED/elise/iac-deploy:$CI_COMMIT_REF_SLUG
     entrypoint: [""]
   stage: deploy
-  variables:
-    ELISE_PIPELINE_MODULE_NAME: tls
-    ELISE_PIPELINE_INPUT_NAME: portal_nginx
   needs:
     - secret_detection
   script:
-    - *terraform_init
-    - |
-      terraform \
-        -chdir="/terraform/modules/$ELISE_PIPELINE_MODULE_NAME" \
-        apply -auto-approve \
-        -var-file="/terraform/inputs/$ELISE_PIPELINE_INPUT_NAME.tfvars"
+    - terragrunt run-all apply
 
 include:
   - project: elise/shared-cicd
