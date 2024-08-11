@@ -1,3 +1,3 @@
-# elysianskies-linode
+# iac-linode
 
-Local modules and a CI/CD layer for the major terraform operations : `plan`, `apply`, and `destroy`.
+Manage Terraform resources with a single pipeline using the wrapper, Terragrunt. 
