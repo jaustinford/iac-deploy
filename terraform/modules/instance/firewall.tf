@@ -1,5 +1,5 @@
 resource "linode_firewall" "firewall" {
-  label           = "firewall"
+  label           = "${var.instance_label}-fw"
   inbound_policy  = "DROP"
   outbound_policy = "ACCEPT"
   linodes         = [linode_instance.instance.id]
