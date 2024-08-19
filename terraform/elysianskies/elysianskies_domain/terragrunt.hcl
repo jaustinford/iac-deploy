@@ -9,7 +9,8 @@ terraform {
 inputs = {
   domain_domain    = "elysianskies.com"
   domain_soa_email = "j.austin.ford@gmail.com"
-  instance_labels  = ["portal"]
+
+  domain_labels = ["portal"]
 
   domain_alias_records = [
     {

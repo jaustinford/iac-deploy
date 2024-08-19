@@ -7,9 +7,9 @@ resource "linode_domain" "domain" {
 
 resource "linode_domain_record" "a_records" {
   for_each = {
-    for instance in data.linode_instances.instances.instances : instance.label => {
-      label      = instance.label
-      ip_address = instance.ip_address
+    for linode_instance in data.linode_instances.instances.instances : linode_instance.label => {
+      label      = linode_instance.label
+      ip_address = linode_instance.ip_address
     }
   }
 

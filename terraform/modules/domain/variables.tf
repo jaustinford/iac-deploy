@@ -1,8 +1,3 @@
-variable "instance_labels" {
-  description = "Attach labels to Linode resource"
-  type        = list(string)
-}
-
 variable "domain_soa_email" {
   description = "Start-of-Authority email for DNS domain"
   type        = string
@@ -19,8 +14,13 @@ variable "domain_ttl_sec" {
   default     = 300
 }
 
+variable "domain_labels" {
+  description = "Create A records for the IP addresses of Linode labels"
+  type        = list(string)
+}
+
 variable "domain_alias_records" {
-  description = "list of DNS records for domain"
+  description = "Create CNAME records as input variables"
   type        = list(
     object(
       {
