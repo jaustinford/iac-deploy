@@ -9,7 +9,7 @@ resource "linode_domain_record" "instances" {
   domain_id = linode_domain.domain.id
 
   for_each = {
-    for instance in data.linode_instances.instances.instances: instance.label => {
+    for instance in data.linode_instances.instances.instances : instance.label => {
       label      = instance.label
       ip_address = instance.ip_address
     }
@@ -24,7 +24,7 @@ resource "linode_domain_record" "custom_records" {
   domain_id = linode_domain.domain.id
 
   for_each = {
-    for domain_record in var.domain_records: domain_record.name => {
+    for domain_record in var.domain_records : domain_record.name => {
       name        = domain_record.name
       record_type = domain_record.record_type
       target      = domain_record.target
