@@ -5,9 +5,7 @@ resource "linode_domain" "domain" {
   soa_email = var.domain_soa_email
 }
 
-resource "linode_domain_record" "instances" {
-  domain_id = linode_domain.domain.id
-
+resource "linode_domain_record" "a_records" {
   for_each = {
     for instance in data.linode_instances.instances.instances : instance.label => {
       label      = instance.label
@@ -15,23 +13,22 @@ resource "linode_domain_record" "instances" {
     }
   }
 
+  domain_id   = linode_domain.domain.id
   record_type = "A"
   name        = each.value.label
   target      = each.value.ip_address
 }
 
-resource "linode_domain_record" "custom_records" {
-  domain_id = linode_domain.domain.id
-
+resource "linode_domain_record" "alias_records" {
   for_each = {
-    for domain_record in var.domain_records : domain_record.name => {
-      name        = domain_record.name
-      record_type = domain_record.record_type
-      target      = domain_record.target
+    for domain_alias_record in var.domain_alias_records : domain_alias_record.name => {
+      name   = domain_alias_record.name
+      target = domain_alias_record.target
     }
   }
 
+  domain_id   = linode_domain.domain.id
+  record_type = "CNAME"
   name        = each.value.name
-  record_type = each.value.record_type
   target      = each.value.target
 }

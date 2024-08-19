@@ -19,14 +19,13 @@ variable "domain_ttl_sec" {
   default     = 300
 }
 
-variable "domain_records" {
+variable "domain_alias_records" {
   description = "list of DNS records for domain"
   type        = list(
     object(
       {
-        name        = string
-        record_type = string
-        target      = string
+        name   = string
+        target = string
       }
     )
   )
