@@ -13,12 +13,12 @@ inputs = {
 
   domain_alias_records = [
     {
-      name        = "home"
-      target      = "portal.elysianskies.com"
+      name   = "home"
+      target = "portal.elysianskies.com"
     },
     {
-      name        = "*.home"
-      target      = "home.elysianskies.com"
+      name   = "*.home"
+      target = "home.elysianskies.com"
     }
   ]
 }
