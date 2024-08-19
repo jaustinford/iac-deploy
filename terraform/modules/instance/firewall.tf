@@ -6,12 +6,13 @@ resource "linode_firewall" "firewall" {
 
   dynamic "inbound" {
     for_each = var.firewall_inbound
+
     content {
-      label    = inbound.value["name"]
-      action   = "ACCEPT"
       protocol = "TCP"
-      ports    = inbound.value["external_port"]
-      ipv4     = inbound.value["sources"]
+      action   = "ACCEPT"
+      label    = inbound.value.name
+      ports    = inbound.value.external_port
+      ipv4     = inbound.value.sources
     }
   }
 }
