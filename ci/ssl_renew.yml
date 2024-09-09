@@ -3,7 +3,7 @@ ssl_renew:
   image:
     name: $ELISE_CI_NEXUS_DOCKER_HOSTED/elise/iac-deploy:$CI_COMMIT_REF_SLUG
     entrypoint: [""]
-  stage: deploy
+  stage: cron
   needs:
     - build_docker_terraform
   script:
