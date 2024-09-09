@@ -5,7 +5,7 @@ ssl_renew:
     entrypoint: [""]
   stage: deploy
   needs:
-    - secret_detection
+    - build_docker_terraform
   script:
     - |
       terragrunt run-all apply \

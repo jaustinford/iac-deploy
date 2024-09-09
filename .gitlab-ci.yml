@@ -6,4 +6,6 @@ include:
 
   - local: ci/ssl_renew.yml
     rules:
-      - if: $ELISE_SCHEDULE_SSL_RENEW && $CI_PIPELINE_SOURCE == "schedule"
+      - if: |
+          $ELISE_SCHEDULE_SSL_RENEW &&
+          $CI_PIPELINE_SOURCE == "schedule"
