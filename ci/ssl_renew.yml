@@ -15,4 +15,3 @@ include:
   - project: elise/shared-cicd
     ref: main
     file: ci/triggers/ansible_playbook.yml
-    needs: ssl_renew
