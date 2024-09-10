@@ -5,13 +5,18 @@ ssl_renew:
     entrypoint: [""]
   stage: deploy
   needs:
-    - build_docker_terraform
+    - build_docker
   script:
     - |
       terragrunt run-all apply \
           --terragrunt-non-interactive
 
-include:
-  - project: elise/shared-cicd
-    ref: main
-    file: ci/triggers/ansible_playbook.yml
+trigger_ansible_playbook:
+  stage: trigger
+  variables:
+    ELISE_CI_DOCKER_IMAGE: $ELISE_CI_NEXUS_DOCKER_HOSTED/elise/iac-configure:$CI_COMMIT_REF_SLUG
+  needs:
+    - ssl_renew
+  trigger:
+    strategy: depend
+    project: elise/infrastructure/iac-configure
