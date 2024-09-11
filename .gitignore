@@ -1,2 +1,2 @@
-terraform/elysianskies/*/.terragrunt-cache
-terraform/elysianskies/*/.terraform.lock.hcl
+terraform/inputs/*/.terragrunt-cache
+terraform/inputs/*/.terraform.lock.hcl

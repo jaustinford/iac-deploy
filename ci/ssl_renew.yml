@@ -1,5 +1,5 @@
 ---
-ssl_renew:
+terragrunt_apply:
   image:
     name: $ELISE_CI_NEXUS_DOCKER_HOSTED/elise/iac-deploy:$CI_COMMIT_REF_SLUG
     entrypoint: [""]
@@ -16,7 +16,7 @@ trigger_ansible_playbook:
   variables:
     ELISE_CI_DOCKER_IMAGE: $ELISE_CI_NEXUS_DOCKER_HOSTED/elise/iac-configure:$CI_COMMIT_REF_SLUG
   needs:
-    - ssl_renew
+    - terragrunt_apply
   trigger:
     strategy: depend
     project: elise/infrastructure/iac-configure
