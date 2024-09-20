@@ -5,7 +5,8 @@ terragrunt_apply:
     entrypoint: [""]
   stage: deploy
   needs:
-    - build_docker
+    - job: build_docker
+      optional: false
   script:
     - |
       terragrunt run-all apply \
@@ -16,7 +17,8 @@ trigger_ansible_playbook:
   variables:
     ELISE_CI_DOCKER_IMAGE: $ELISE_CI_NEXUS_DOCKER_HOSTED/elise/iac-configure:$CI_COMMIT_REF_SLUG
   needs:
-    - terragrunt_apply
+    - job: terragrunt_apply
+      optional: false
   trigger:
     strategy: depend
     project: elise/infrastructure/iac-configure
