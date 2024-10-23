@@ -6,6 +6,10 @@ terraform {
   source = "../../modules//domain"
 }
 
+dependency "instance" {
+  config_path = "../portal_instance"
+}
+
 inputs = {
   domain_domain    = "elysianskies.com"
   domain_soa_email = "j.austin.ford@gmail.com"
