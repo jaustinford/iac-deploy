@@ -14,7 +14,7 @@ inputs = {
     {
       name          = "ssh"
       external_port = "22"
-      sources       = ["174.51.140.247/32"]
+      sources       = ["73.3.155.61/32"]
     },
     {
       name          = "openvpnas"
