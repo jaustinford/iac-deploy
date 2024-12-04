@@ -6,6 +6,10 @@ terraform {
   source = "../../modules//tls"
 }
 
+dependency "instance" {
+  config_path = "../elysianskies_domain"
+}
+
 inputs = {
   registration_email_address = "j.austin.ford@gmail.com"
   certificate_common_name    = "home.elysianskies.com"
