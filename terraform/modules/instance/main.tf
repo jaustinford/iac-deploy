@@ -18,11 +18,13 @@ resource "linode_instance" "instance" {
   # alerting
   #########################################
 
-  "alerts.0.cpu"            = var.instance_alerts_cpu
-  "alerts.0.network_in"     = var.instance_alerts_network_in
-  "alerts.0.network_out"    = var.instance_alerts_network_out
-  "alerts.0.transfer_quota" = var.instance_alerts_transfer_quota
-  "alerts.0.io"             = var.instance_alerts_io
+  alerts {
+    cpu            = var.instance_alerts_cpu
+    network_in     = var.instance_alerts_network_in
+    network_out    = var.instance_alerts_network_out
+    transfer_quota = var.instance_alerts_transfer_quota
+    io             = var.instance_alerts_io
+  }
 
   #########################################
   # booleans
