@@ -4,15 +4,23 @@ resource "linode_firewall" "firewall" {
   outbound_policy = "ACCEPT"
   linodes         = [linode_instance.instance.id]
 
+  inbound {
+    action   = "ACCEPT"
+    protocol = "TCP"
+    label    = "ssh"
+    ports    = "22"
+    ipv4     = ["${data.http.wan_ip.response_body}/32"]
+  }
+
   dynamic "inbound" {
     for_each = var.firewall_inbound
 
     content {
-      protocol = "TCP"
       action   = "ACCEPT"
-      label    = inbound.value.name
-      ports    = inbound.value.external_port
-      ipv4     = inbound.value.sources
+      protocol = inbound.value.protocol
+      label    = inbound.value.label
+      ports    = inbound.value.ports
+      ipv4     = inbound.value.ipv4
     }
   }
 }
