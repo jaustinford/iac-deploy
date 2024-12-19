@@ -7,5 +7,6 @@ include:
   - local: ci/ssl_renew.yml
     rules:
       - if: |
+          $CI_COMMIT_BRANCH == "main" &&
           $ELISE_SCHEDULE_SSL_RENEW &&
           $CI_PIPELINE_SOURCE == "schedule"
