@@ -1,2 +1,3 @@
+.env
 terraform/inputs/*/.terragrunt-cache
 terraform/inputs/*/.terraform.lock.hcl

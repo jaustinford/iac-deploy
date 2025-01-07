@@ -1,0 +1,38 @@
+---
+# Used for local deployment and development.
+# Create an '.env' file within this directory
+# and populate the missing key values there.
+
+services:
+  iac_deploy:
+    container_name: iac-deploy
+    build:
+      context: .
+    entrypoint: terragrunt run-all plan # --terragrunt-non-interactive
+
+    environment:
+      - TZ=America/Denver
+      - LINODE_TOKEN=${LINODE_TOKEN}
+      # - TERRAGRUNT_EXCLUDE_DIR=/terraform/inputs/nginx_certificate
+
+    volumes:
+      - type: volume
+        source: tvault
+        target: /tfstate
+        read_only: false
+        volume: 
+          subpath: elysianskies/tfstate
+
+    networks:
+      - iac_deploy
+
+volumes:
+  tvault:
+    driver_opts:
+      type: cifs
+      o: username=${TVAULT_USERNAME},password=${TVAULT_PASSWORD},uid=1000,gid=1000,iocharset=utf8
+      device: //172.16.16.4/tvault
+
+networks:
+  iac_deploy:
+    name: iac_deploy
