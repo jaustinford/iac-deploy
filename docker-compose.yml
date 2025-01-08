@@ -1,19 +1,33 @@
 ---
-# Used for local deployment and development.
-# Create an '.env' file within this directory
-# and populate the missing key values there.
-
 services:
-  iac_deploy:
-    container_name: iac-deploy
+
+  ###########################################################
+  # builder
+  ###########################################################
+
+  builder:
     build:
       context: .
-    entrypoint: terragrunt run-all plan # --terragrunt-non-interactive
+      tags:
+        - docker01-teine.home.elysianskies.com:32501/elise/iac-deploy:main
+    profiles:
+      - builder
+
+  ###########################################################
+  # terragrunt_plan
+  ###########################################################
+
+  terragrunt_plan:
+    image: docker01-teine.home.elysianskies.com:32501/elise/iac-deploy:main
+    entrypoint: |
+      terragrunt run-all
+          plan
+    profiles:
+      - plan
 
     environment:
       - TZ=America/Denver
       - LINODE_TOKEN=${LINODE_TOKEN}
-      # - TERRAGRUNT_EXCLUDE_DIR=/terraform/inputs/nginx_certificate
 
     volumes:
       - type: volume
@@ -25,6 +39,67 @@ services:
 
     networks:
       - iac_deploy
+
+  ###########################################################
+  # terragrunt_apply
+  ###########################################################
+
+  terragrunt_apply:
+    image: docker01-teine.home.elysianskies.com:32501/elise/iac-deploy:main
+    entrypoint: |
+      terragrunt run-all
+          apply
+          --terragrunt-non-interactive
+    profiles:
+      - apply
+
+    environment:
+      - TZ=America/Denver
+      - LINODE_TOKEN=${LINODE_TOKEN}
+
+    volumes:
+      - type: volume
+        source: tvault
+        target: /tfstate
+        read_only: false
+        volume: 
+          subpath: elysianskies/tfstate
+
+    networks:
+      - iac_deploy
+
+  ###########################################################
+  # terragrunt_destroy
+  ###########################################################
+
+  terragrunt_destroy:
+    image: docker01-teine.home.elysianskies.com:32501/elise/iac-deploy:main
+    entrypoint: |
+      terragrunt run-all
+          destroy
+          --terragrunt-non-interactive
+    profiles:
+      - destroy
+
+    environment:
+      - TZ=America/Denver
+      - LINODE_TOKEN=${LINODE_TOKEN}
+      - TERRAGRUNT_EXCLUDE_DIR=/terraform/inputs/nginx_certificate
+
+    volumes:
+      - type: volume
+        source: tvault
+        target: /tfstate
+        read_only: false
+        volume: 
+          subpath: elysianskies/tfstate
+
+    networks:
+      - iac_deploy
+
+###########################################################
+# resources
+###########################################################
 
 volumes:
   tvault:
