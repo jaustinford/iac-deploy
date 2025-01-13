@@ -12,7 +12,7 @@ terragrunt_apply:
       terragrunt run-all apply \
           --terragrunt-non-interactive
 
-trigger_playbook_site:
+playbook_site:
   stage: trigger
   variables:
     ELISE_CI_DOCKER_IMAGE: $ELISE_CI_NEXUS_DOCKER_HOSTED/elise/iac-configure:$CI_COMMIT_REF_SLUG
