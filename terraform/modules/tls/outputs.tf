@@ -1,13 +1,11 @@
 output "certificate_certificate_pem" {
   description = "certificate_certificate_pem"
   value       = acme_certificate.certificate.certificate_pem
-  sensitive   = true
 }
 
 output "certificate_issuer_pem" {
   description = "certificate_issuer_pem"
   value       = acme_certificate.certificate.issuer_pem
-  sensitive   = true
 }
 
 output "certificate_private_key_pem" {
