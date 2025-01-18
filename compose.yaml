@@ -169,6 +169,38 @@ services:
     networks:
       - iac_deploy
 
+  ###########################################################
+  # terraform_output
+  ###########################################################
+
+  terraform_output:
+    image: docker01-teine.home.elysianskies.com:32501/elise/iac-deploy:feature-refactor
+    entrypoint: |
+      terraform -chdir=/terraform/environment output
+    profiles:
+      - output
+
+    environment:
+      - TZ=America/Denver
+      - LINODE_TOKEN=${LINODE_TOKEN}
+      - terraform_EXCLUDE_DIR=/terraform/inputs/nginx_certificate
+
+    volumes:
+      - type: bind
+        source: /c/Users/austin/workspace/git/gitlab.home.elysianskies.com/elise/infrastructure/iac-deploy/terraform/environment
+        target: /terraform/environment
+        read_only: false
+
+      - type: volume
+        source: tvault
+        target: /tfstate
+        read_only: false
+        volume: 
+          subpath: elysianskies/tfstate
+
+    networks:
+      - iac_deploy
+
 ###########################################################
 # resources
 ###########################################################
