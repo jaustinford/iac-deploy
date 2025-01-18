@@ -1,32 +1,28 @@
-variable "domain_soa_email" {
-  description = "Start-of-Authority email for DNS domain"
-  type        = string
-}
-
-variable "domain_domain" {
-  description = "Name of DNS domain"
-  type        = string
-}
-
 variable "domain_ttl_sec" {
-  description = "Time-to-live for DNS records in seconds"
   type        = number
+  description = "Time-to-live for DNS records in seconds"
   default     = 300
 }
 
-variable "domain_labels" {
-  description = "Create A records for the IP addresses of Linode labels"
-  type        = list(string)
+variable "domain_domain" {
+  type        = string
+  description = "Name of DNS domain"
 }
 
-variable "domain_alias_records" {
-  description = "Create CNAME records as input variables"
+variable "domain_soa_email" {
+  type        = string
+  description = "Start-of-Authority email for DNS domain"
+}
+
+variable "domain_records" {
   type        = list(
     object(
       {
-        name   = string
-        target = string
+        record_type = string
+        name        = string
+        target      = string
       }
     )
   )
+  description = "List of domain records"
 }
