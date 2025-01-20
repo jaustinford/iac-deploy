@@ -1,27 +1,34 @@
 output "vpc_id" {
-  value = linode_vpc.vpc.id
+  description = "VPC ID"
+  value       = linode_vpc.vpc.id
 }
 
 output "vpc_created" {
-  value = linode_vpc.vpc.created
+  description = "VPC created"
+  value       = linode_vpc.vpc.created
 }
 
 output "vpc_updated" {
-  value = linode_vpc.vpc.updated
+  description = "VPC updated"
+  value       = linode_vpc.vpc.updated
 }
 
 output "vpc_subnet_id" {
-  value = linode_vpc_subnet.vpc_subnet.id
+  description = "VPC subnet ID"
+  value       = linode_vpc_subnet.vpc_subnet.id
 }
 
 output "vpc_subnet_linodes" {
-  value = linode_vpc_subnet.vpc_subnet.linodes
+  description = "VPC subnet Linodes"
+  value       = linode_vpc_subnet.vpc_subnet.linodes
 }
 
 output "vpc_subnet_created" {
-  value = linode_vpc_subnet.vpc_subnet.created
+  description = "VPC subnet created"
+  value       = linode_vpc_subnet.vpc_subnet.created
 }
 
 output "vpc_subnet_updated" {
-  value = linode_vpc_subnet.vpc_subnet.updated
+  description = "VPC subnet updated"
+  value       = linode_vpc_subnet.vpc_subnet.updated
 }
