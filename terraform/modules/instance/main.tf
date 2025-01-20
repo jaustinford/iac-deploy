@@ -75,6 +75,10 @@ resource "linode_instance" "instance" {
   tags = [
     "Pipeline URL : ${var.tag_ci_pipeline_url}"
   ]
+
+  lifecycle {
+    ignore_changes = [tags]
+  }
 }
 
 ###############################################################################

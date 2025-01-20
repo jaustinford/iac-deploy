@@ -28,4 +28,8 @@ resource "linode_firewall" "firewall" {
   tags = [
     "Pipeline URL : ${var.tag_ci_pipeline_url}"
   ]
+
+  lifecycle {
+    ignore_changes = [tags]
+  }
 }

@@ -7,6 +7,10 @@ resource "linode_domain" "domain" {
   tags = [
     "Pipeline URL : ${var.tag_ci_pipeline_url}"
   ]
+
+  lifecycle {
+    ignore_changes = [tags]
+  }
 }
 
 resource "linode_domain_record" "domain_records" {
