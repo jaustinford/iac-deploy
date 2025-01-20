@@ -9,10 +9,12 @@ resource "linode_instance" "instance" {
   # settings
   ###############################################################################
 
-  region = var.instance_region
-  type   = var.instance_type
-  label  = var.instance_label
-  image  = var.instance_image
+  region          = var.instance_region
+  type            = var.instance_type
+  label           = var.instance_label
+  image           = var.instance_image
+  disk_encryption = var.instance_disk_encrypted
+  migration_type  = var.instance_migration_type
 
   ###############################################################################
   # alerting
@@ -65,6 +67,17 @@ resource "linode_instance" "instance" {
       }
     }
   }
+}
+
+###############################################################################
+# instance_disk
+###############################################################################
+
+resource "linode_instance_disk" "instance_disk" {
+  label      = "${var.instance_label}-boot-disk"
+  linode_id  = linode_instance.instance.id
+  size       = var.instance_disk_size
+  filesystem = var.instance_disk_filesystem
 }
 
 ###############################################################################

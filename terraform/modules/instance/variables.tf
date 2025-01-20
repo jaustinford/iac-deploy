@@ -56,6 +56,42 @@ variable "instance_image" {
   default     = "linode/ubuntu22.04"
 }
 
+variable "instance_migration_type" {
+  type        = string
+  description = "Migration type when updating type or region"
+  default     = "cold"
+
+  validation {
+    condition = contains(
+      [
+        "cold",
+        "warm"
+      ],
+      var.instance_migration_type
+    )
+
+    error_message = "Incorrect value for instance migration type"
+  }
+}
+
+variable "instance_disk_encrypted" {
+  type        = string
+  description = "Enable or disable disk encryption"
+  default     = "enabled"
+
+  validation {
+    condition = contains(
+      [
+        "enabled",
+        "disabled"
+      ],
+      var.instance_disk_encrypted
+    )
+
+    error_message = "Incorrect value for disk encryption"
+  }
+}
+
 ############################################################
 # module - instance - alerting
 ############################################################
@@ -163,6 +199,37 @@ variable "instance_interfaces" {
       vpc_ipv4  = ""
     }
   ]
+}
+
+###############################################################################
+# module - instance_disk
+###############################################################################
+
+variable "instance_disk_size" {
+  type        = number
+  description = "Size in MB for instance disk"
+  default     = 1024
+}
+
+variable "instance_disk_filesystem" {
+  type        = string
+  description = "Type for instance disk filesystem"
+  default     = "ext4"
+
+  validation {
+    condition = contains(
+      [
+        "raw",
+        "swap",
+        "ext3",
+        "ext4",
+        "initrd"
+      ],
+      var.instance_disk_filesystem
+    )
+
+    error_message = "Incorrect value for instance disk filesystem"
+  }
 }
 
 ###############################################################################
