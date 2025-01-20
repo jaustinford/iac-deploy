@@ -35,7 +35,7 @@ variable "instance_region" {
       var.instance_region
     )
 
-    error_message = "Region value is incorrect"
+    error_message = "Incorrect value for region"
   }
 }
 
@@ -43,6 +43,15 @@ variable "instance_type" {
   type        = string
   description = "Compute type for instance"
   default     = "g6-nanode-1"
+
+  validation {
+    condition = contains(
+      local.instance_types,
+      var.instance_type
+    )
+
+    error_message = "Incorrect value for instance type"
+  }
 }
 
 variable "instance_label" {
@@ -54,6 +63,15 @@ variable "instance_image" {
   type        = string
   description = "Image to run on instance"
   default     = "linode/ubuntu22.04"
+
+  validation {
+    condition = contains(
+      local.instance_images,
+      var.instance_image
+    )
+
+    error_message = "Incorrect value for instance image"
+  }
 }
 
 variable "instance_migration_type" {
@@ -163,7 +181,7 @@ variable "instance_booted" {
 variable "instance_placement_group_externally_managed" {
   type        = bool
   description = "Should the instance be controlled by a placement group"
-  default     = true
+  default     = false
 }
 
 ###############################################################################
