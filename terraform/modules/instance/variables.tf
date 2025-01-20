@@ -96,7 +96,7 @@ variable "instance_alerts_io" {
 
 variable "instance_private_ip" {
   type        = bool
-  description = "Should instance have a private IP address"
+  description = "Should instance be on Linode's shared 192.168.128.0/17 network"
   default     = false
 }
 
@@ -143,19 +143,26 @@ variable "instance_authorized_keys" {
 # module - instance - interface
 ###############################################################################
 
-variable "instance_interfaces_private" {
+variable "instance_interfaces" {
   type = list(
     object(
       {
         purpose   = string
-        subnet_id = string
+        subnet_id = number
         vpc_ipv4  = string
       }
     )
   )
 
-  description = "Define a list of private interfaces"
-  default = []
+  description = "Define a list of interfaces"
+
+  default = [
+    {
+      purpose   = "public"
+      subnet_id = 0
+      vpc_ipv4  = ""
+    }
+  ]
 }
 
 ###############################################################################

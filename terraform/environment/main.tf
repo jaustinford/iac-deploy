@@ -10,7 +10,12 @@ module "instance_portal" {
 
   instance_label = "portal"
 
-  instance_interfaces_private = [
+  instance_interfaces = [
+    {
+      purpose   = "public"
+      subnet_id = 0
+      vpc_ipv4  = ""
+    },
     {
       purpose   = "vpc"
       subnet_id = module.vpc_elysianskies.vpc_subnet_id

@@ -50,22 +50,14 @@ resource "linode_instance" "instance" {
   ###############################################################################
 
   dynamic "interface" {
-    for_each = (var.instance_private_ip ? [] : [0])
-
-    content {
-      purpose = "public"
-    }
-  }
-
-  dynamic "interface" {
-    for_each = var.instance_interfaces_private
+    for_each = var.instance_interfaces
 
     content {
       purpose   = interface.value.purpose
       subnet_id = interface.value.subnet_id
 
       dynamic "ipv4" {
-        for_each = (interface.value.vpc_ipv4 != "dhcp" ? [0] : [])
+        for_each = ((interface.value.vpc_ipv4 != "dhcp" && interface.value.purpose != "public") ? [0] : [])
 
         content {
           vpc = interface.value.vpc_ipv4
