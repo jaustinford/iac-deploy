@@ -1,6 +1,6 @@
 # iac-deploy
 
-Manage Terraform resources with a single pipeline using the wrapper, Terragrunt. 
+Manage Terraform resources with a single pipeline. 
 
 ## pipelines
 

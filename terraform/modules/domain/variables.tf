@@ -1,3 +1,7 @@
+###############################################################################
+# module
+###############################################################################
+
 variable "domain_ttl_sec" {
   type        = number
   description = "Time-to-live for DNS records in seconds"
@@ -15,7 +19,7 @@ variable "domain_soa_email" {
 }
 
 variable "domain_records" {
-  type        = list(
+  type = list(
     object(
       {
         record_type = string
@@ -24,5 +28,6 @@ variable "domain_records" {
       }
     )
   )
+
   description = "List of domain records"
 }

@@ -19,4 +19,8 @@ resource "acme_certificate" "certificate" {
   }
 
   depends_on = [acme_registration.registration]
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }

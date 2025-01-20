@@ -30,7 +30,7 @@ services:
 
     volumes:
       - type: bind
-        source: /c/Users/austin/workspace/git/gitlab.home.elysianskies.com/elise/infrastructure/iac-deploy/terraform/environment
+        source: terraform/environment
         target: /terraform/environment
         read_only: false
 
@@ -61,7 +61,7 @@ services:
 
     volumes:
       - type: bind
-        source: /c/Users/austin/workspace/git/gitlab.home.elysianskies.com/elise/infrastructure/iac-deploy/terraform/environment
+        source: terraform/environment
         target: /terraform/environment
         read_only: false
 
@@ -92,7 +92,7 @@ services:
 
     volumes:
       - type: bind
-        source: /c/Users/austin/workspace/git/gitlab.home.elysianskies.com/elise/infrastructure/iac-deploy/terraform/environment
+        source: terraform/environment
         target: /terraform/environment
         read_only: false
 
@@ -123,7 +123,7 @@ services:
 
     volumes:
       - type: bind
-        source: /c/Users/austin/workspace/git/gitlab.home.elysianskies.com/elise/infrastructure/iac-deploy/terraform/environment
+        source: terraform/environment
         target: /terraform/environment
         read_only: false
 
@@ -151,11 +151,10 @@ services:
     environment:
       - TZ=America/Denver
       - LINODE_TOKEN=${LINODE_TOKEN}
-      - terraform_EXCLUDE_DIR=/terraform/inputs/nginx_certificate
 
     volumes:
       - type: bind
-        source: /c/Users/austin/workspace/git/gitlab.home.elysianskies.com/elise/infrastructure/iac-deploy/terraform/environment
+        source: terraform/environment
         target: /terraform/environment
         read_only: false
 
@@ -183,11 +182,10 @@ services:
     environment:
       - TZ=America/Denver
       - LINODE_TOKEN=${LINODE_TOKEN}
-      - terraform_EXCLUDE_DIR=/terraform/inputs/nginx_certificate
 
     volumes:
       - type: bind
-        source: /c/Users/austin/workspace/git/gitlab.home.elysianskies.com/elise/infrastructure/iac-deploy/terraform/environment
+        source: terraform/environment
         target: /terraform/environment
         read_only: false
 

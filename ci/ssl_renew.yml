@@ -1,23 +1,22 @@
 ---
-terragrunt_apply:
+terraform_apply:
   image:
     name: $ELISE_CI_NEXUS_DOCKER_HOSTED/elise/iac-deploy:$CI_COMMIT_REF_SLUG
     entrypoint: [""]
   stage: deploy
   needs:
-    - job: build_terragrunt
+    - job: build_terraform
       optional: false
   script:
     - |
-      terragrunt run-all apply \
-          --terragrunt-non-interactive
+      terraform apply -auto-approve
 
 playbook_site:
   stage: trigger
   variables:
     ELISE_CI_DOCKER_IMAGE: $ELISE_CI_NEXUS_DOCKER_HOSTED/elise/iac-configure:$CI_COMMIT_REF_SLUG
   needs:
-    - job: terragrunt_apply
+    - job: terraform_apply
       optional: false
   trigger:
     strategy: depend
