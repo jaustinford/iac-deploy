@@ -143,9 +143,33 @@ variable "instance_authorized_keys" {
 # module - instance - interface
 ###############################################################################
 
-variable "instance_subnet_id" {
-  type        = string
-  description = "VPC subnet ID"
+variable "instance_interfaces_dhcp" {
+  type = list(
+    object(
+      {
+        purpose   = string
+        subnet_id = string
+      }
+    )
+  )
+
+  description = "Define a DHCP interface"
+  default     = []
+}
+
+variable "instance_interfaces_static" {
+  type = list(
+    object(
+      {
+        purpose   = string
+        subnet_id = string
+        vpc_ipv4  = string
+      }
+    )
+  )
+
+  description = "Define a static interface"
+  default     = []
 }
 
 ###############################################################################
