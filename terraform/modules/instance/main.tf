@@ -88,7 +88,7 @@ resource "linode_instance" "instance" {
 resource "linode_instance_disk" "instance_disk" {
   label      = "${var.instance_label}-boot-disk"
   linode_id  = linode_instance.instance.id
-  size       = var.instance_disk_size
+  size       = var.instance_disk_size * 1024
   filesystem = var.instance_disk_filesystem
 }
 

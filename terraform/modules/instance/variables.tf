@@ -225,8 +225,8 @@ variable "instance_interfaces" {
 
 variable "instance_disk_size" {
   type        = number
-  description = "Size in MB for instance disk"
-  default     = 1024
+  description = "Size in GB for instance disk"
+  default     = 10
 }
 
 variable "instance_disk_filesystem" {
