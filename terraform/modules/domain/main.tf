@@ -3,6 +3,10 @@ resource "linode_domain" "domain" {
   ttl_sec   = var.domain_ttl_sec
   domain    = var.domain_domain
   soa_email = var.domain_soa_email
+
+  tags = [
+    "Pipeline URL : ${var.tag_ci_pipeline_url}"
+  ]
 }
 
 resource "linode_domain_record" "domain_records" {

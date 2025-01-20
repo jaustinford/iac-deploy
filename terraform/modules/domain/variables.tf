@@ -31,3 +31,12 @@ variable "domain_records" {
 
   description = "List of domain records"
 }
+
+###############################################################################
+# tags
+###############################################################################
+
+variable "tag_ci_pipeline_url" {
+  type        = string
+  description = "Tag for CI_PIPELINE_URL"
+}

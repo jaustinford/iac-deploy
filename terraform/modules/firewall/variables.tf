@@ -32,3 +32,12 @@ variable "firewall_inbound" {
 
   description = "Inbound rules for firewall"
 }
+
+###############################################################################
+# tags
+###############################################################################
+
+variable "tag_ci_pipeline_url" {
+  type        = string
+  description = "Tag for CI_PIPELINE_URL"
+}

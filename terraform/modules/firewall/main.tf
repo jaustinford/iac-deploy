@@ -24,4 +24,8 @@ resource "linode_firewall" "firewall" {
       ipv4     = inbound.value.ipv4
     }
   }
+
+  tags = [
+    "Pipeline URL : ${var.tag_ci_pipeline_url}"
+  ]
 }

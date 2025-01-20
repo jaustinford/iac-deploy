@@ -265,3 +265,12 @@ variable "instance_placement_group_policy" {
   description = "Assign affinity policy"
   default     = "strict"
 }
+
+###############################################################################
+# tags
+###############################################################################
+
+variable "tag_ci_pipeline_url" {
+  type        = string
+  description = "Tag for CI_PIPELINE_URL"
+}

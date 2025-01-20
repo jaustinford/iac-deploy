@@ -34,6 +34,8 @@ module "instance_portal" {
     )
   )
 
+  tag_ci_pipeline_url = var.tag_ci_pipeline_url
+
   depends_on = [module.vpc_elysianskies]
 }
 
@@ -57,6 +59,8 @@ module "firewall_elysianskies" {
       ipv4     = ["0.0.0.0/0"]
     }
   ]
+
+  tag_ci_pipeline_url = var.tag_ci_pipeline_url
 
   depends_on = [module.instance_portal]
 }
@@ -84,6 +88,8 @@ module "domain_elysianskies" {
       target      = "home.${local.domain_name}"
     }
   ]
+
+  tag_ci_pipeline_url = var.tag_ci_pipeline_url
 
   depends_on = [module.instance_portal]
 }
