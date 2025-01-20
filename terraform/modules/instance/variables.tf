@@ -143,21 +143,7 @@ variable "instance_authorized_keys" {
 # module - instance - interface
 ###############################################################################
 
-variable "instance_interfaces_dhcp" {
-  type = list(
-    object(
-      {
-        purpose   = string
-        subnet_id = string
-      }
-    )
-  )
-
-  description = "Define a DHCP interface"
-  default     = []
-}
-
-variable "instance_interfaces_static" {
+variable "instance_interfaces_private" {
   type = list(
     object(
       {
@@ -168,8 +154,7 @@ variable "instance_interfaces_static" {
     )
   )
 
-  description = "Define a static interface"
-  default     = []
+  description = "Define a list of private interfaces"
 }
 
 ###############################################################################

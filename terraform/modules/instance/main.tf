@@ -50,7 +50,7 @@ resource "linode_instance" "instance" {
   ###############################################################################
 
   dynamic "interface" {
-    for_each = var.instance_private_ip ? [0] : 0
+    for_each = (var.instance_private_ip ? [] : [0])
 
     content {
       purpose = "public"
@@ -58,22 +58,18 @@ resource "linode_instance" "instance" {
   }
 
   dynamic "interface" {
-    for_each = var.instance_interfaces_dhcp
+    for_each = var.instance_interfaces_private
 
     content {
       purpose   = interface.value.purpose
       subnet_id = interface.value.subnet_id
-    }
-  }
 
-  dynamic "interface" {
-    for_each = var.instance_interfaces_static
+      dynamic "ipv4" {
+        for_each = (interface.value.vpc_ipv4 != "dhcp" ? [0] : [])
 
-    content {
-      purpose   = interface.value.purpose
-      subnet_id = interface.value.subnet_id
-      ipv4 {
-        vpc = interface.value.vpc_ipv4
+        content {
+          vpc = interface.value.vpc_ipv4
+        }
       }
     }
   }
@@ -84,7 +80,7 @@ resource "linode_instance" "instance" {
 ###############################################################################
 
 resource "linode_placement_group" "placement_group" {
-  count = var.instance_placement_group_externally_managed ? 1 : 0
+  count = (var.instance_placement_group_externally_managed ? 1 : 0)
 
   label                  = "${var.instance_label}-pg"
   region                 = var.instance_region
@@ -93,7 +89,7 @@ resource "linode_placement_group" "placement_group" {
 }
 
 resource "linode_placement_group_assignment" "placement_group_assignment" {
-  count = var.instance_placement_group_externally_managed ? 1 : 0
+  count = (var.instance_placement_group_externally_managed ? 1 : 0)
 
   placement_group_id = linode_placement_group.placement_group[0].id
   linode_id          = linode_instance.instance.id

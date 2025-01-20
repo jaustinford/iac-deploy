@@ -9,10 +9,11 @@ module "instance_portal" {
 
   instance_label = "portal"
 
-  instance_interfaces_dhcp = [
+  instance_interfaces_private = [
     {
       purpose   = "vpc"
       subnet_id = module.vpc_elysianskies.vpc_subnet_id
+      vpc_ipv4  = "dhcp"
     }
   ]
 
