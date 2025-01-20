@@ -14,8 +14,6 @@ resource "linode_instance" "instance" {
   label  = var.instance_label
   image  = var.instance_image
 
-  placement_group_externally_managed = var.instance_placement_group_externally_managed
-
   ###############################################################################
   # alerting
   ###############################################################################
@@ -37,6 +35,8 @@ resource "linode_instance" "instance" {
   backups_enabled  = var.instance_backups_enabled
   watchdog_enabled = var.instance_watchdog_enabled
   booted           = var.instance_booted
+
+  placement_group_externally_managed = var.instance_placement_group_externally_managed
 
   ###############################################################################
   # user authentication

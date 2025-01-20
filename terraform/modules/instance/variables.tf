@@ -56,12 +56,6 @@ variable "instance_image" {
   default     = "linode/ubuntu22.04"
 }
 
-variable "instance_placement_group_externally_managed" {
-  type        = bool
-  description = "Should the instance be controlled by a placement group"
-  default     = true
-}
-
 ############################################################
 # module - instance - alerting
 ############################################################
@@ -127,6 +121,12 @@ variable "instance_watchdog_enabled" {
 variable "instance_booted" {
   type        = bool
   description = "Should the instance be running"
+  default     = true
+}
+
+variable "instance_placement_group_externally_managed" {
+  type        = bool
+  description = "Should the instance be controlled by a placement group"
   default     = true
 }
 
