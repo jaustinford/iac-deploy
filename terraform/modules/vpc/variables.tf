@@ -33,5 +33,4 @@ variable "vpc_description" {
 variable "vpc_subnet_ipv4" {
   type        = string
   description = "IPv4 for VPC subnet"
-  default     = "192.168.600.0/29"
 }

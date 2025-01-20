@@ -1,7 +1,8 @@
 module "vpc_elysianskies" {
   source = "../modules/vpc"
 
-  vpc_label = "elysianskies"
+  vpc_label       = "elysianskies"
+  vpc_subnet_ipv4 = "192.168.600.0/29"
 }
 
 module "instance_portal" {
