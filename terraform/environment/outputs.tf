@@ -15,7 +15,7 @@ output "instance_portal_instance_id" {
 
 output "instance_portal_ip_address" {
   description = "Portal instance IP address"
-  value       = module.instance_portal.ip_address
+  value       = module.instance_portal.instance_ip_address
 }
 
 output "firewall_elysianskies_firewall_id" {
