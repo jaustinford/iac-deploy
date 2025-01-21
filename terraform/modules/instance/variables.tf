@@ -83,24 +83,6 @@ variable "instance_migration_type" {
   }
 }
 
-variable "instance_disk_encrypted" {
-  type        = string
-  description = "Enable or disable disk encryption"
-  default     = "enabled"
-
-  validation {
-    condition = contains(
-      [
-        "enabled",
-        "disabled"
-      ],
-      var.instance_disk_encrypted
-    )
-
-    error_message = "Incorrect value for disk encryption"
-  }
-}
-
 ###########################################################
 # module - instance - alerting
 ###########################################################
@@ -181,7 +163,7 @@ variable "instance_disk_swap_size" {
 
 variable "instance_disk_boot_filesystem" {
   type        = string
-  description = "Type of filesystem for boot disk"
+  description = "Filesystem for instance disk boot drive"
   default     = "ext4"
 
   validation {
@@ -196,22 +178,40 @@ variable "instance_disk_boot_filesystem" {
       var.instance_disk_boot_filesystem
     )
 
-    error_message = "Incorrect value for instance disk filesystem"
+    error_message = "Incorrect value for instance disk boot filesystem"
   }
 }
 
-variable "instance_disk_image" {
+variable "instance_disk_boot_image" {
   type        = string
-  description = "Image to run on instance"
+  description = "Deploy with instance disk boot image"
   default     = "linode/ubuntu22.04"
 
   validation {
     condition = contains(
-      local.instance_disk_images,
-      var.instance_disk_image
+      local.instance_disk_boot_images,
+      var.instance_disk_boot_image
     )
 
-    error_message = "Incorrect value for instance image"
+    error_message = "Incorrect value for instance disk boot image"
+  }
+}
+
+variable "instance_disk_boot_disk_encryption" {
+  type        = string
+  description = "Enable or disable instance disk boot encryption"
+  default     = "enabled"
+
+  validation {
+    condition = contains(
+      [
+        "enabled",
+        "disabled"
+      ],
+      var.instance_disk_boot_disk_encryption
+    )
+
+    error_message = "Incorrect value for instance disk boot encryption"
   }
 }
 
