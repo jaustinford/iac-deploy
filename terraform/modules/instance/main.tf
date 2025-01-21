@@ -43,7 +43,6 @@ resource "linode_instance" "instance" {
   ###########################################################
 
   private_ip       = var.instance_private_ip
-  resize_disk      = var.instance_resize_disk
   backups_enabled  = var.instance_backups_enabled
   watchdog_enabled = var.instance_watchdog_enabled
 

@@ -145,12 +145,6 @@ variable "instance_private_ip" {
   default     = false
 }
 
-variable "instance_resize_disk" {
-  type        = bool
-  description = "Should the instance have a dynamically managed hard disk"
-  default     = false
-}
-
 variable "instance_backups_enabled" {
   type        = bool
   description = "Should the instance be backed up"
