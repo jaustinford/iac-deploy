@@ -23,7 +23,6 @@ resource "linode_instance" "instance" {
   region          = var.instance_region
   type            = var.instance_type
   label           = "${var.instance_label}-${random_string.name_uuid[count.index].result}"
-  image           = var.instance_image
   disk_encryption = var.instance_disk_encrypted
   migration_type  = var.instance_migration_type
 
@@ -50,13 +49,6 @@ resource "linode_instance" "instance" {
   booted           = var.instance_booted
 
   placement_group_externally_managed = var.instance_placement_group_externally_managed
-
-  ###########################################################
-  # user authentication
-  ###########################################################
-
-  authorized_keys = var.instance_authorized_keys
-  root_pass       = random_password.root_password[count.index].result
 
   ###########################################################
   # interface
@@ -102,7 +94,12 @@ resource "linode_instance_disk" "instance_disk" {
   label      = "${var.instance_label}-${random_string.name_uuid[count.index].result}-boot-disk"
   linode_id  = linode_instance.instance[count.index].id
   size       = var.instance_disk_size * 1024
+  image      = var.instance_disk_image
   filesystem = var.instance_disk_filesystem
+
+  authorized_keys = var.instance_disk_authorized_keys
+  root_pass       = random_password.root_password[count.index].result
+
 }
 
 ###########################################################

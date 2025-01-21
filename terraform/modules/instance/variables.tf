@@ -65,21 +65,6 @@ variable "instance_label" {
   description = "Attach labels to Linode resource"
 }
 
-variable "instance_image" {
-  type        = string
-  description = "Image to run on instance"
-  default     = "linode/ubuntu22.04"
-
-  validation {
-    condition = contains(
-      local.instance_images,
-      var.instance_image
-    )
-
-    error_message = "Incorrect value for instance image"
-  }
-}
-
 variable "instance_migration_type" {
   type        = string
   description = "Migration type when updating type or region"
@@ -191,15 +176,6 @@ variable "instance_placement_group_externally_managed" {
 }
 
 ###########################################################
-# module - instance - user authentication
-###########################################################
-
-variable "instance_authorized_keys" {
-  type        = list(string)
-  description = "SSH keys to install into instance"
-}
-
-###########################################################
 # module - instance - interface
 ###########################################################
 
@@ -235,6 +211,21 @@ variable "instance_disk_size" {
   default     = 10
 }
 
+variable "instance_disk_image" {
+  type        = string
+  description = "Image to run on instance"
+  default     = "linode/ubuntu22.04"
+
+  validation {
+    condition = contains(
+      local.instance_images,
+      var.instance_image
+    )
+
+    error_message = "Incorrect value for instance image"
+  }
+}
+
 variable "instance_disk_filesystem" {
   type        = string
   description = "Type for instance disk filesystem"
@@ -254,6 +245,11 @@ variable "instance_disk_filesystem" {
 
     error_message = "Incorrect value for instance disk filesystem"
   }
+}
+
+variable "instance_disk_authorized_keys" {
+  type        = list(string)
+  description = "SSH keys to install into instance"
 }
 
 ###########################################################

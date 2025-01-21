@@ -23,7 +23,7 @@ module "instance_portal" {
     }
   ]
 
-  instance_authorized_keys = split(
+  instance_disk_authorized_keys = split(
     "\n",
     templatefile(
       "${path.module}/templates/authorized_keys",
