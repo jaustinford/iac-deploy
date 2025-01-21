@@ -102,8 +102,4 @@ module "tls_nginx" {
   ]
 
   depends_on = [module.domain_elysianskies]
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }

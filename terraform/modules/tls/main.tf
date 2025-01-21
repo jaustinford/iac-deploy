@@ -1,11 +1,19 @@
 resource "tls_private_key" "private_key" {
   algorithm = "RSA"
   rsa_bits  = var.private_key_rsa_bits
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "acme_registration" "registration" {
   account_key_pem = tls_private_key.private_key.private_key_pem
   email_address   = var.registration_email_address
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "acme_certificate" "certificate" {
@@ -19,4 +27,8 @@ resource "acme_certificate" "certificate" {
   }
 
   depends_on = [acme_registration.registration]
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
