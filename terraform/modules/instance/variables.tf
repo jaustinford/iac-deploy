@@ -197,24 +197,6 @@ variable "instance_disk_boot_image" {
   }
 }
 
-variable "instance_disk_boot_disk_encryption" {
-  type        = string
-  description = "Enable or disable instance disk boot encryption"
-  default     = "enabled"
-
-  validation {
-    condition = contains(
-      [
-        "enabled",
-        "disabled"
-      ],
-      var.instance_disk_boot_disk_encryption
-    )
-
-    error_message = "Incorrect value for instance disk boot encryption"
-  }
-}
-
 variable "instance_disk_authorized_keys" {
   type        = list(string)
   description = "SSH keys to install into instance"

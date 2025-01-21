@@ -67,12 +67,11 @@ resource "linode_instance" "instance" {
 resource "linode_instance_disk" "boot_disk" {
   count = var.instance_count
 
-  label           = "${var.instance_label}-${random_string.name_uuid[count.index].result}-boot-disk"
-  linode_id       = linode_instance.instance[count.index].id
-  size            = var.instance_disk_boot_size * 1024
-  filesystem      = var.instance_disk_boot_filesystem
-  image           = var.instance_disk_boot_image
-  disk_encryption = var.instance_disk_boot_disk_encryption
+  label      = "${var.instance_label}-${random_string.name_uuid[count.index].result}-boot-disk"
+  linode_id  = linode_instance.instance[count.index].id
+  size       = var.instance_disk_boot_size * 1024
+  filesystem = var.instance_disk_boot_filesystem
+  image      = var.instance_disk_boot_image
 
   authorized_keys = var.instance_disk_authorized_keys
   root_pass       = random_password.root_password[count.index].result
