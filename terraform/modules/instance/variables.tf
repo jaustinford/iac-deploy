@@ -230,7 +230,13 @@ variable "instance_config_booted" {
   default     = true
 }
 
-variable "instance_config_interfaces" {
+variable "instance_config_public_interface" {
+  type        = bool
+  description = "Should the instance have a public interface"
+  default     = true
+}
+
+variable "instance_config_private_interfaces" {
   type = list(
     object(
       {
@@ -242,16 +248,7 @@ variable "instance_config_interfaces" {
     )
   )
 
-  description = "Define a list of interfaces"
-
-  default = [
-    {
-      purpose   = "public"
-      subnet_id = 0
-      primary   = false
-      vpc_ipv4  = ""
-    }
-  ]
+  description = "Define a list of private interfaces"
 }
 
 ###########################################################
