@@ -40,5 +40,16 @@ output "domain_elysianskies_domain_status" {
 
 output "tls_nginx_certificate_certificate_pem" {
   description = "Nginx certificate PEM"
-  value       = module.tls_nginx.certificate_certificate_pem 
+  value       = module.tls_nginx.certificate_certificate_pem
+}
+
+output "tls_nginx_certificate_issuer_pem" {
+  description = "Nginx certificate issuer PEM"
+  value       = module.tls_nginx.certificate_issuer_pem
+}
+
+output "tls_nginx_certificate_private_key_pem" {
+  description = "Nginx certificate private key PEM"
+  value       = module.tls_nginx.certificate_private_key_pem
+  sensitive   = true
 }
