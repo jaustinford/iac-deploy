@@ -8,8 +8,7 @@ module "vpc_elysianskies" {
 module "instance_portal" {
   source = "../modules/instance"
 
-  instance_label     = "portal"
-  instance_disk_size = 10
+  instance_label = "portal"
 
   instance_interfaces = [
     {
