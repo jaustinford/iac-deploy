@@ -17,7 +17,7 @@ resource "linode_instance" "instance" {
   count = var.instance_count
 
   ###########################################################
-  # settings
+  # instance - settings
   ###########################################################
 
   region          = var.instance_region
@@ -27,7 +27,7 @@ resource "linode_instance" "instance" {
   migration_type  = var.instance_migration_type
 
   ###########################################################
-  # alerting
+  # instance - alerting
   ###########################################################
 
   alerts {
@@ -39,40 +39,18 @@ resource "linode_instance" "instance" {
   }
 
   ###########################################################
-  # booleans
+  # instance - booleans
   ###########################################################
 
   private_ip       = var.instance_private_ip
   resize_disk      = var.instance_resize_disk
   backups_enabled  = var.instance_backups_enabled
   watchdog_enabled = var.instance_watchdog_enabled
-  booted           = var.instance_booted
 
   placement_group_externally_managed = var.instance_placement_group_externally_managed
 
   ###########################################################
-  # interface
-  ###########################################################
-
-  dynamic "interface" {
-    for_each = var.instance_interfaces
-
-    content {
-      purpose   = interface.value.purpose
-      subnet_id = interface.value.subnet_id
-
-      dynamic "ipv4" {
-        for_each = ((interface.value.vpc_ipv4 != "dhcp" && interface.value.purpose != "public") ? [0] : [])
-
-        content {
-          vpc = interface.value.vpc_ipv4
-        }
-      }
-    }
-  }
-
-  ###########################################################
-  # tags
+  # instance - tags
   ###########################################################
 
   tags = [
@@ -88,18 +66,65 @@ resource "linode_instance" "instance" {
 # instance_disk
 ###########################################################
 
-resource "linode_instance_disk" "instance_disk" {
+resource "linode_instance_disk" "boot_disk" {
   count = var.instance_count
 
   label      = "${var.instance_label}-${random_string.name_uuid[count.index].result}-boot-disk"
   linode_id  = linode_instance.instance[count.index].id
-  size       = var.instance_disk_size * 1024
+  size       = var.instance_disk_boot_size * 1024
+  filesystem = var.instance_disk_boot_filesystem
   image      = var.instance_disk_image
-  filesystem = var.instance_disk_filesystem
 
   authorized_keys = var.instance_disk_authorized_keys
   root_pass       = random_password.root_password[count.index].result
 
+}
+
+resource "linode_instance_disk" "swap_disk" {
+  count = var.instance_count
+
+  label      = "${var.instance_label}-${random_string.name_uuid[count.index].result}-swap-disk"
+  linode_id  = linode_instance.instance[count.index].id
+  size       = var.instance_disk_swap_size
+  filesystem = "swap"
+}
+
+###########################################################
+# instance_config
+###########################################################
+
+resource "linode_instance_config" "instance_config" {
+  label       = "${var.instance_label}-${random_string.name_uuid[count.index].result}-instance-config"
+  linode_id   = linode_instance.instance[count.index].id
+  booted      = var.instance_config_booted
+  root_device = "/dev/sda"
+
+  device {
+    device_name = "sda"
+    disk_id     = linode_instance_disk.boot_disk[count.index].id
+  }
+
+  device {
+    device_name = "sdb"
+    disk_id     = linode_instance_disk.swap_disk[count.index].id
+  }
+
+  dynamic "interface" {
+    for_each = var.instance_config_interfaces
+
+    content {
+      purpose   = interface.value.purpose
+      subnet_id = interface.value.subnet_id
+
+      dynamic "ipv4" {
+        for_each = ((interface.value.vpc_ipv4 != "dhcp" && interface.value.purpose != "public") ? [0] : [])
+
+        content {
+          vpc = interface.value.vpc_ipv4
+        }
+      }
+    }
+  }
 }
 
 ###########################################################

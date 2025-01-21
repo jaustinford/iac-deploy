@@ -163,12 +163,6 @@ variable "instance_watchdog_enabled" {
   default     = true
 }
 
-variable "instance_booted" {
-  type        = bool
-  description = "Should the instance be running"
-  default     = true
-}
-
 variable "instance_placement_group_externally_managed" {
   type        = bool
   description = "Should the instance be controlled by a placement group"
@@ -176,10 +170,73 @@ variable "instance_placement_group_externally_managed" {
 }
 
 ###########################################################
-# module - instance - interface
+# module - instance_disk
 ###########################################################
 
-variable "instance_interfaces" {
+variable "instance_disk_boot_size" {
+  type        = number
+  description = "Size in GB for boot disk"
+  default     = 10
+}
+
+variable "instance_disk_swap_size" {
+  type        = number
+  description = "Size in MB for swap disk"
+  default     = 512
+}
+
+variable "instance_disk_boot_filesystem" {
+  type        = string
+  description = "Type of filesystem for boot disk"
+  default     = "ext4"
+
+  validation {
+    condition = contains(
+      [
+        "raw",
+        "swap",
+        "ext3",
+        "ext4",
+        "initrd"
+      ],
+      var.instance_disk_boot_filesystem
+    )
+
+    error_message = "Incorrect value for instance disk filesystem"
+  }
+}
+
+variable "instance_disk_image" {
+  type        = string
+  description = "Image to run on instance"
+  default     = "linode/ubuntu22.04"
+
+  validation {
+    condition = contains(
+      local.instance_disk_images,
+      var.instance_disk_image
+    )
+
+    error_message = "Incorrect value for instance image"
+  }
+}
+
+variable "instance_disk_authorized_keys" {
+  type        = list(string)
+  description = "SSH keys to install into instance"
+}
+
+###########################################################
+# module - instance_config
+###########################################################
+
+variable "instance_config_booted" {
+  type        = bool
+  description = "Should the instance be running"
+  default     = true
+}
+
+variable "instance_config_interfaces" {
   type = list(
     object(
       {
@@ -199,57 +256,6 @@ variable "instance_interfaces" {
       vpc_ipv4  = ""
     }
   ]
-}
-
-###########################################################
-# module - instance_disk
-###########################################################
-
-variable "instance_disk_size" {
-  type        = number
-  description = "Size in GB for instance disk"
-  default     = 10
-}
-
-variable "instance_disk_image" {
-  type        = string
-  description = "Image to run on instance"
-  default     = "linode/ubuntu22.04"
-
-  validation {
-    condition = contains(
-      local.instance_disk_images,
-      var.instance_disk_image
-    )
-
-    error_message = "Incorrect value for instance image"
-  }
-}
-
-variable "instance_disk_filesystem" {
-  type        = string
-  description = "Type for instance disk filesystem"
-  default     = "ext4"
-
-  validation {
-    condition = contains(
-      [
-        "raw",
-        "swap",
-        "ext3",
-        "ext4",
-        "initrd"
-      ],
-      var.instance_disk_filesystem
-    )
-
-    error_message = "Incorrect value for instance disk filesystem"
-  }
-}
-
-variable "instance_disk_authorized_keys" {
-  type        = list(string)
-  description = "SSH keys to install into instance"
 }
 
 ###########################################################

@@ -10,7 +10,7 @@ module "instance_portal" {
 
   instance_label = "portal"
 
-  instance_interfaces = [
+  instance_config_interfaces = [
     {
       purpose   = "public"
       subnet_id = 0
