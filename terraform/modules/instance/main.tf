@@ -115,7 +115,6 @@ resource "linode_instance_config" "instance_config" {
 
     content {
       purpose = "public"
-
     }
   }
 
@@ -128,10 +127,27 @@ resource "linode_instance_config" "instance_config" {
       primary   = interface.value.primary
 
       dynamic "ipv4" {
-        for_each = (interface.value.vpc_ipv4 != "dhcp" ? [0] : [])
+        for_each = (interface.value.vpc_ipv4 != "dhcp" && not var.instance_config_public_interface ? [0] : [])
 
         content {
           vpc = interface.value.vpc_ipv4
+        }
+      }
+
+      dynamic "ipv4" {
+        for_each = (interface.value.vpc_ipv4 != "dhcp" && var.instance_config_public_interface ? [0] : [])
+
+        content {
+          vpc     = interface.value.vpc_ipv4
+          nat_1_1 = "any"
+        }
+      }
+
+      dynamic "ipv4" {
+        for_each = (interface.value.vpc_ipv4 == "dhcp" && var.instance_config_public_interface ? [0] : [])
+
+        content {
+          nat_1_1 = "any"
         }
       }
     }
