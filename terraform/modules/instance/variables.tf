@@ -27,7 +27,7 @@ variable "instance_count" {
 variable "instance_region" {
   type        = string
   description = "Region to deploy instance"
-  default     = "us-central"
+  default     = "us-ord"
 
   validation {
     condition = contains(
