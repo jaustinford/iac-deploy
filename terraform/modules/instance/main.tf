@@ -93,6 +93,8 @@ resource "linode_instance_disk" "swap_disk" {
 ###########################################################
 
 resource "linode_instance_config" "instance_config" {
+  count = var.instance_count
+
   label       = "${var.instance_label}-${random_string.name_uuid[count.index].result}-instance-config"
   linode_id   = linode_instance.instance[count.index].id
   booted      = var.instance_config_booted
