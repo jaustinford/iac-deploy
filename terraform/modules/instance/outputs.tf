@@ -15,6 +15,6 @@ output "instance_ip_address" {
 }
 
 output "instance_disk_boot_disk_encryption" {
-  description = "Instance IP address"
+  description = "Instance disk boot disk encryption"
   value       = linode_instance_disk.boot_disk[*].disk_encryption
 }
