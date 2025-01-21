@@ -14,11 +14,13 @@ module "instance_portal" {
     {
       purpose   = "public"
       subnet_id = 0
+      primary   = false
       vpc_ipv4  = ""
     },
     {
       purpose   = "vpc"
       subnet_id = module.vpc_elysianskies.vpc_subnet_id
+      primary   = true
       vpc_ipv4  = "dhcp"
     }
   ]

@@ -116,6 +116,7 @@ resource "linode_instance_config" "instance_config" {
     content {
       purpose   = interface.value.purpose
       subnet_id = interface.value.subnet_id
+      primary   = interface.value.primary
 
       dynamic "ipv4" {
         for_each = ((interface.value.vpc_ipv4 != "dhcp" && interface.value.purpose != "public") ? [0] : [])
