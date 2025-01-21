@@ -18,6 +18,11 @@ output "instance_portal_ip_address" {
   value       = module.instance_portal.instance_ip_address
 }
 
+output "instance_portal_boot_disk_encryption" {
+  description = "Instance boot disk encryption enabled"
+  value       = module.instance_portal.instance_disk_boot_disk_encryption
+}
+
 output "firewall_elysianskies_firewall_id" {
   description = "ElysianSkies firewall ID"
   value       = module.firewall_elysianskies.firewall_id
