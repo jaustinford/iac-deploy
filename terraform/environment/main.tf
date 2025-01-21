@@ -33,7 +33,7 @@ module "instance_portal" {
     )
   )
 
-  tag_ci_pipeline_url = var.tag_ci_pipeline_url
+  tag_ci_pipeline_id = var.tag_ci_pipeline_id
 
   depends_on = [module.vpc_elysianskies]
 }
@@ -59,7 +59,7 @@ module "firewall_elysianskies" {
     }
   ]
 
-  tag_ci_pipeline_url = var.tag_ci_pipeline_url
+  tag_ci_pipeline_id = var.tag_ci_pipeline_id
 
   depends_on = [module.instance_portal]
 }
@@ -88,7 +88,7 @@ module "domain_elysianskies" {
     }
   ]
 
-  tag_ci_pipeline_url = var.tag_ci_pipeline_url
+  tag_ci_pipeline_id = var.tag_ci_pipeline_id
 
   depends_on = [module.instance_portal]
 }

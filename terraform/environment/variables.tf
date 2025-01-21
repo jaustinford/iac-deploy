@@ -1,5 +1,5 @@
-variable "tag_ci_pipeline_url" {
+variable "tag_ci_pipeline_id" {
   type        = string
-  description = "Tag for CI_PIPELINE_URL"
+  description = "Tag for CI_PIPELINE_ID"
   default     = "deployed locally"
 }

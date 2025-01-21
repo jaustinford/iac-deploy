@@ -26,7 +26,7 @@ resource "linode_firewall" "firewall" {
   }
 
   tags = [
-    "Pipeline URL : ${var.tag_ci_pipeline_url}"
+    "Pipeline ID : ${var.tag_ci_pipeline_id}"
   ]
 
   lifecycle {

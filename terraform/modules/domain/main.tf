@@ -5,7 +5,7 @@ resource "linode_domain" "domain" {
   soa_email = var.domain_soa_email
 
   tags = [
-    "Pipeline URL : ${var.tag_ci_pipeline_url}"
+    "Pipeline ID : ${var.tag_ci_pipeline_id}"
   ]
 
   lifecycle {

@@ -37,7 +37,7 @@ variable "firewall_inbound" {
 # tags
 ###########################################################
 
-variable "tag_ci_pipeline_url" {
+variable "tag_ci_pipeline_id" {
   type        = string
-  description = "Tag for CI_PIPELINE_URL"
+  description = "Tag for CI_PIPELINE_ID"
 }
