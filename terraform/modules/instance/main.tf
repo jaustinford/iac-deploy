@@ -127,7 +127,7 @@ resource "linode_instance_config" "instance_config" {
       primary   = interface.value.primary
 
       dynamic "ipv4" {
-        for_each = ((interface.value.vpc_ipv4 != "dhcp" && not var.instance_config_public_interface) ? [0] : [])
+        for_each = (interface.value.vpc_ipv4 != "dhcp" && not var.instance_config_public_interface) ? [0] : []
 
         content {
           vpc = interface.value.vpc_ipv4
@@ -135,7 +135,7 @@ resource "linode_instance_config" "instance_config" {
       }
 
       dynamic "ipv4" {
-        for_each = ((interface.value.vpc_ipv4 != "dhcp" && var.instance_config_public_interface) ? [0] : [])
+        for_each = (interface.value.vpc_ipv4 != "dhcp" && var.instance_config_public_interface) ? [0] : []
 
         content {
           vpc     = interface.value.vpc_ipv4
@@ -144,7 +144,7 @@ resource "linode_instance_config" "instance_config" {
       }
 
       dynamic "ipv4" {
-        for_each = ((interface.value.vpc_ipv4 == "dhcp" && var.instance_config_public_interface) ? [0] : [])
+        for_each = (interface.value.vpc_ipv4 == "dhcp" && var.instance_config_public_interface) ? [0] : []
 
         content {
           nat_1_1 = "any"
