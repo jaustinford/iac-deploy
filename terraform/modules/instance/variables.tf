@@ -236,6 +236,7 @@ variable "instance_config_interfaces" {
       {
         purpose   = string
         subnet_id = number
+        primary   = bool
         vpc_ipv4  = string
       }
     )
@@ -247,6 +248,7 @@ variable "instance_config_interfaces" {
     {
       purpose   = "public"
       subnet_id = 0
+      primary   = false
       vpc_ipv4  = ""
     }
   ]
