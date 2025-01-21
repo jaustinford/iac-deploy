@@ -249,6 +249,7 @@ variable "instance_config_private_interfaces" {
   )
 
   description = "Define a list of private interfaces"
+  default     = []
 }
 
 ###########################################################
