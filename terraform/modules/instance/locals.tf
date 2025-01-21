@@ -93,7 +93,7 @@ locals {
     "g2-gpu-rtx4000a4-m"   # RTX4000 Ada x4 Medium              | 48 vCPU | 196 GB RAM | $ 3.57   hr
   ]
 
-  instance_images = [
+  instance_disk_images = [
     "linode/almalinux8",             # AlmaLinux 8
     "linode/almalinux9",             # AlmaLinux 9
     "linode/alpine3.18",             # Alpine 3.18

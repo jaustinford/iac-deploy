@@ -218,8 +218,8 @@ variable "instance_disk_image" {
 
   validation {
     condition = contains(
-      local.instance_images,
-      var.instance_image
+      local.instance_disk_images,
+      var.instance_disk_image
     )
 
     error_message = "Incorrect value for instance image"
