@@ -18,6 +18,12 @@ variable "root_password_special" {
 # module - instance - settings
 ###########################################################
 
+variable "instance_count" {
+  type        = number
+  description = "Number of instances to deploy"
+  default     = 1
+}
+
 variable "instance_region" {
   type        = string
   description = "Region to deploy instance"

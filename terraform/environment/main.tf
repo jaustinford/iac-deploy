@@ -43,7 +43,7 @@ module "firewall_elysianskies" {
   source = "../modules/firewall"
 
   firewall_label   = "elysianskies"
-  firewall_linodes = [module.instance_portal.instance_id]
+  firewall_linodes = module.instance_portal.instance_id
 
   firewall_inbound = [
     {
@@ -75,7 +75,7 @@ module "domain_elysianskies" {
     {
       record_type = "A"
       name        = "portal"
-      target      = module.instance_portal.instance_ip_address
+      target      = module.instance_portal.instance_ip_address[0]
     },
     {
       record_type = "CNAME"
