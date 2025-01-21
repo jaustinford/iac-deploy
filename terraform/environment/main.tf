@@ -100,7 +100,7 @@ module "tls_nginx" {
   certificate_common_name    = "home.${local.domain_name}"
 
   certificate_subject_alternative_names = [
-    "*.${local.domain_name}",
+    "*.home.${local.domain_name}",
     "*.docker01-teine.home.${local.domain_name}",
     "*.docker02-teine.home.${local.domain_name}"
   ]
