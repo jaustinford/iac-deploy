@@ -100,6 +100,4 @@ module "tls_nginx" {
     "*.docker01-teine.home.${local.domain_name}",
     "*.docker02-teine.home.${local.domain_name}"
   ]
-
-  depends_on = [module.domain_elysianskies]
 }

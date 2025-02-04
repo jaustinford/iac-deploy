@@ -144,7 +144,13 @@ services:
   terraform_destroy:
     image: docker01-teine.home.elysianskies.com:32501/elise/iac-deploy:main
     entrypoint: |
-      terraform -chdir=/terraform/environment destroy -auto-approve
+      terraform
+        -chdir=/terraform/environment destroy 
+        -target module.domain_elysianskies
+        -target module.firewall_elysianskies
+        -target module.instance_portal
+        -target module.vpc_elysianskies
+        -auto-approve
     profiles:
       - destroy
 
