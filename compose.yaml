@@ -9,7 +9,7 @@ services:
     build:
       context: .
       tags:
-        - docker01-teine.home.elysianskies.com:32501/elise/iac-deploy:main
+        - nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
     profiles:
       - builder
 
@@ -18,7 +18,7 @@ services:
   ###########################################################
 
   terraform_init:
-    image: docker01-teine.home.elysianskies.com:32501/elise/iac-deploy:main
+    image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment init
     profiles:
@@ -49,7 +49,7 @@ services:
   ###########################################################
 
   terraform_validate:
-    image: docker01-teine.home.elysianskies.com:32501/elise/iac-deploy:main
+    image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment validate
     profiles:
@@ -80,7 +80,7 @@ services:
   ###########################################################
 
   terraform_plan:
-    image: docker01-teine.home.elysianskies.com:32501/elise/iac-deploy:main
+    image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment plan
     profiles:
@@ -111,7 +111,7 @@ services:
   ###########################################################
 
   terraform_apply:
-    image: docker01-teine.home.elysianskies.com:32501/elise/iac-deploy:main
+    image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment apply -auto-approve
     profiles:
@@ -142,7 +142,7 @@ services:
   ###########################################################
 
   terraform_destroy:
-    image: docker01-teine.home.elysianskies.com:32501/elise/iac-deploy:main
+    image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
     entrypoint: |
       terraform
         -chdir=/terraform/environment destroy 
@@ -179,7 +179,7 @@ services:
   ###########################################################
 
   terraform_output:
-    image: docker01-teine.home.elysianskies.com:32501/elise/iac-deploy:main
+    image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment output
     profiles:
