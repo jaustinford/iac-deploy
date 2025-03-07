@@ -1,15 +1,21 @@
 ---
+.terraform_init: &terraform_init
+  terraform -chdir=terraform/environment init
+
 terraform_apply:
   image:
-    name: $ELISE_CI_NEXUS_DOCKER_HOSTED/elise/iac-deploy:$CI_COMMIT_REF_SLUG
+    name: $ELISE_CI_DOCKER_IMAGE
     entrypoint: [""]
   stage: deploy
+  when: manual
   needs:
-    - job: build_terraform
+    - job: terraform_plan
       optional: false
+  variables:
+    TF_VAR_tag_ci_pipeline_id: $CI_PIPELINE_ID
   script:
-    - |
-      terraform apply -auto-approve
+    - *terraform_init
+    - terraform -chdir=terraform/environment apply -auto-approve
 
 playbook_site:
   stage: trigger
