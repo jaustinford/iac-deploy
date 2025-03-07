@@ -9,7 +9,7 @@ terraform_apply:
   stage: deploy
   when: manual
   needs:
-    - job: terraform_plan
+    - job: build_terraform
       optional: false
   variables:
     TF_VAR_tag_ci_pipeline_id: $CI_PIPELINE_ID
