@@ -7,7 +7,6 @@ terraform_apply:
     name: $ELISE_CI_DOCKER_IMAGE
     entrypoint: [""]
   stage: deploy
-  when: manual
   needs:
     - job: build_terraform
       optional: false
