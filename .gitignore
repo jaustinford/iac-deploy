@@ -1,3 +1,4 @@
 .env
+triggers/__pycache__
 terraform/environment/.terraform
 terraform/environment/.terraform.lock.hcl
