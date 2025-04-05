@@ -14,10 +14,10 @@ services:
       - builder
 
   ###########################################################
-  # terraform_init
+  # init
   ###########################################################
 
-  terraform_init:
+  init:
     image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment init
@@ -45,10 +45,10 @@ services:
       - iac_deploy
 
   ###########################################################
-  # terraform_validate
+  # validate
   ###########################################################
 
-  terraform_validate:
+  validate:
     image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment validate
@@ -76,10 +76,10 @@ services:
       - iac_deploy
 
   ###########################################################
-  # terraform_plan
+  # plan
   ###########################################################
 
-  terraform_plan:
+  plan:
     image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment plan
@@ -107,10 +107,10 @@ services:
       - iac_deploy
 
   ###########################################################
-  # terraform_apply
+  # apply
   ###########################################################
 
-  terraform_apply:
+  apply:
     image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment apply -auto-approve
@@ -138,10 +138,10 @@ services:
       - iac_deploy
 
   ###########################################################
-  # terraform_destroy
+  # destroy
   ###########################################################
 
-  terraform_destroy:
+  destroy:
     image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
     entrypoint: |
       terraform
@@ -175,10 +175,10 @@ services:
       - iac_deploy
 
   ###########################################################
-  # terraform_output
+  # output
   ###########################################################
 
-  terraform_output:
+  output:
     image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment output
