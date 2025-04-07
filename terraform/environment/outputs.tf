@@ -13,6 +13,11 @@ output "instance_portal_instance_id" {
   value       = module.instance_portal.instance_id
 }
 
+output "instance_portal_instance_label" {
+  description = "Portal instance Label"
+  value       = module.instance_portal.instance_label
+}
+
 output "instance_portal_ip_address" {
   description = "Portal instance IP address"
   value       = module.instance_portal.instance_ip_address
