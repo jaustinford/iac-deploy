@@ -26,4 +26,5 @@ except KeyboardInterrupt:
 else:
     wrappers.compose_down(COMPOSE_PROFILE)
 
-input("\nPress [enter] to continue... ")
+if not os.environ.get("SKIP_PAUSE"):
+    input("\nPress [enter] to continue... ")
