@@ -8,8 +8,14 @@ services:
   builder:
     build:
       context: .
+      args:
+        BUILD_ARCH: linux/amd64
       tags:
         - nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
+      cache_from:
+        - type=registry,ref=nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:cache
+      cache_to:
+        - type=registry,ref=nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:cache,mode=max
     profiles:
       - builder
 
