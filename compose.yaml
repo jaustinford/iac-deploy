@@ -202,7 +202,7 @@ volumes:
     driver_opts:
       type: cifs
       o: username=${TVAULT_USERNAME},password=${TVAULT_PASSWORD},uid=1000,gid=1000,iocharset=utf8
-      device: //172.16.16.4/tvault
+      device: //192.168.20.5/tvault
 
 networks:
   iac_deploy:
