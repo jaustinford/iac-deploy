@@ -84,9 +84,21 @@ variable "instance_migration_type" {
 }
 
 variable "instance_disk_encryption" {
-  type        = bool
+  type        = string
   description = "Should the disk be encrypted"
-  default     = true
+  default     = "enabled"
+
+  validation {
+    condition = contains(
+      [
+        "enabled",
+        "disabled"
+      ],
+      var.instance_migration_type
+    )
+
+    error_message = "Incorrect value for instance disk encryption"
+  }
 }
 
 ###########################################################
