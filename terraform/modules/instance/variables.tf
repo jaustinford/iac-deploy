@@ -83,6 +83,12 @@ variable "instance_migration_type" {
   }
 }
 
+variable "instance_disk_encryption" {
+  type        = bool
+  description = "Should the disk be encrypted"
+  default     = true
+}
+
 ###########################################################
 # module - instance - alerting
 ###########################################################

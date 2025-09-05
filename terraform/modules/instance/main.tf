@@ -24,6 +24,7 @@ resource "linode_instance" "instance" {
   type            = var.instance_type
   label           = "${var.instance_label}-${random_string.name_uuid[count.index].result}"
   migration_type  = var.instance_migration_type
+  disk_encryption = var.instance_disk_encryption
 
   ###########################################################
   # instance - alerting
