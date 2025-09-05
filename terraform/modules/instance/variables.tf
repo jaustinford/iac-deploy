@@ -94,7 +94,7 @@ variable "instance_disk_encryption" {
         "enabled",
         "disabled"
       ],
-      var.instance_migration_type
+      var.instance_disk_encryption
     )
 
     error_message = "Incorrect value for instance disk encryption"
