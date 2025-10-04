@@ -1,5 +1,5 @@
 terraform {
   backend "local" {
-    path = "/tfstate/elysianskies.json"
+    path = "/tfstate/lab.json"
   }
 }

@@ -1,11 +1,11 @@
-output "vpc_elysianskies_vpc_id" {
-  description = "ElysianSkies VPC ID"
-  value       = module.vpc_elysianskies.vpc_id 
+output "vpc_lab_vpc_id" {
+  description = "Lab VPC ID"
+  value       = module.vpc_lab.vpc_id
 }
 
-output "vpc_elysianskies_vpc_subnet_id" {
-  description = "ElysianSkies VPC subnet ID"
-  value       = module.vpc_elysianskies.vpc_subnet_id 
+output "vpc_lab_vpc_subnet_id" {
+  description = "Lab VPC subnet ID"
+  value       = module.vpc_lab.vpc_subnet_id
 }
 
 output "instance_portal_instance_id" {
@@ -28,19 +28,19 @@ output "instance_portal_boot_disk_encryption" {
   value       = module.instance_portal.instance_disk_boot_disk_encryption
 }
 
-output "firewall_elysianskies_firewall_id" {
-  description = "ElysianSkies firewall ID"
-  value       = module.firewall_elysianskies.firewall_id
+output "firewall_lab_firewall_id" {
+  description = "Lab firewall ID"
+  value       = module.firewall_lab.firewall_id
 }
 
-output "firewall_elysianskies_firewall_status" {
-  description = "ElysianSkies firewall status"
-  value       = module.firewall_elysianskies.firewall_status
+output "firewall_lab_firewall_status" {
+  description = "Lab firewall status"
+  value       = module.firewall_lab.firewall_status
 }
 
-output "domain_elysianskies_domain_status" {
-  description = "ElysianSkies domain status"
-  value       = module.domain_elysianskies.domain_status
+output "domain_lab_domain_status" {
+  description = "Lab domain status"
+  value       = module.domain_lab.domain_status
 }
 
 output "tls_nginx_certificate_certificate_pem" {

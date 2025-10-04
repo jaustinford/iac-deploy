@@ -6,7 +6,7 @@ services:
   ###########################################################
 
   init:
-    image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
+    image: docker-hosted.pendragonlab.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment init
     profiles:
@@ -23,11 +23,9 @@ services:
         read_only: false
 
       - type: volume
-        source: tvault
+        source: raid_vol
         target: /tfstate
         read_only: false
-        volume: 
-          subpath: elysianskies/tfstate
 
     networks:
       - iac_deploy
@@ -37,7 +35,7 @@ services:
   ###########################################################
 
   validate:
-    image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
+    image: docker-hosted.pendragonlab.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment validate
     profiles:
@@ -54,11 +52,9 @@ services:
         read_only: false
 
       - type: volume
-        source: tvault
+        source: raid_vol
         target: /tfstate
         read_only: false
-        volume: 
-          subpath: elysianskies/tfstate
 
     networks:
       - iac_deploy
@@ -68,7 +64,7 @@ services:
   ###########################################################
 
   plan:
-    image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
+    image: docker-hosted.pendragonlab.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment plan
     profiles:
@@ -85,11 +81,9 @@ services:
         read_only: false
 
       - type: volume
-        source: tvault
+        source: raid_vol
         target: /tfstate
         read_only: false
-        volume: 
-          subpath: elysianskies/tfstate
 
     networks:
       - iac_deploy
@@ -99,7 +93,7 @@ services:
   ###########################################################
 
   apply:
-    image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
+    image: docker-hosted.pendragonlab.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment apply -auto-approve
     profiles:
@@ -116,11 +110,9 @@ services:
         read_only: false
 
       - type: volume
-        source: tvault
+        source: raid_vol
         target: /tfstate
         read_only: false
-        volume: 
-          subpath: elysianskies/tfstate
 
     networks:
       - iac_deploy
@@ -130,14 +122,14 @@ services:
   ###########################################################
 
   destroy:
-    image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
+    image: docker-hosted.pendragonlab.com/elise/iac-deploy:main
     entrypoint: |
       terraform
-        -chdir=/terraform/environment destroy 
-        -target module.domain_elysianskies
-        -target module.firewall_elysianskies
+        -chdir=/terraform/environment destroy
+        -target module.domain_lab
+        -target module.firewall_lab
         -target module.instance_portal
-        -target module.vpc_elysianskies
+        -target module.vpc_lab
         -auto-approve
     profiles:
       - destroy
@@ -153,11 +145,36 @@ services:
         read_only: false
 
       - type: volume
-        source: tvault
+        source: raid_vol
         target: /tfstate
         read_only: false
-        volume: 
-          subpath: elysianskies/tfstate
+
+    networks:
+      - iac_deploy
+
+  destroy_all:
+    image: docker-hosted.pendragonlab.com/elise/iac-deploy:main
+    entrypoint: |
+      terraform
+        -chdir=/terraform/environment destroy
+        -auto-approve
+    profiles:
+      - destroy-all
+
+    environment:
+      - TZ=America/Denver
+      - LINODE_TOKEN=${LINODE_TOKEN}
+
+    volumes:
+      - type: bind
+        source: terraform/environment
+        target: /terraform/environment
+        read_only: false
+
+      - type: volume
+        source: raid_vol
+        target: /tfstate
+        read_only: false
 
     networks:
       - iac_deploy
@@ -167,7 +184,7 @@ services:
   ###########################################################
 
   output:
-    image: nexus-hosted.docker02-teine.home.elysianskies.com/elise/iac-deploy:main
+    image: docker-hosted.pendragonlab.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment output
     profiles:
@@ -184,11 +201,9 @@ services:
         read_only: false
 
       - type: volume
-        source: tvault
+        source: raid_vol
         target: /tfstate
         read_only: false
-        volume: 
-          subpath: elysianskies/tfstate
 
     networks:
       - iac_deploy
@@ -198,11 +213,11 @@ services:
 ###########################################################
 
 volumes:
-  tvault:
+  raid_vol:
     driver_opts:
       type: cifs
-      o: username=${TVAULT_USERNAME},password=${TVAULT_PASSWORD},uid=1000,gid=1000,iocharset=utf8
-      device: //192.168.20.5/tvault
+      o: username=${RAID_VOL_USERNAME},password=${RAID_VOL_PASSWORD},uid=${LOCAL_USER_UID},gid=${LOCAL_USER_UID},iocharset=utf8
+      device: //${RAID_VOL_HOST}/${RAID_VOL_SHARE}
 
 networks:
   iac_deploy:

@@ -1,19 +1,19 @@
-module "vpc_elysianskies" {
+module "vpc_lab" {
   source = "../modules/vpc"
 
-  vpc_label       = "elysianskies"
+  vpc_label       = local.domain_root
   vpc_subnet_ipv4 = "192.168.80.0/29"
 }
 
 module "instance_portal" {
   source = "../modules/instance"
 
-  instance_label = "portal"
+  instance_label = "${local.domain_root}-portal"
 
   instance_config_private_interfaces = [
     {
       purpose   = "vpc"
-      subnet_id = module.vpc_elysianskies.vpc_subnet_id
+      subnet_id = module.vpc_lab.vpc_subnet_id
       primary   = true
       vpc_ipv4  = "dhcp"
     }
@@ -31,13 +31,13 @@ module "instance_portal" {
 
   tag_ci_pipeline_id = var.tag_ci_pipeline_id
 
-  depends_on = [module.vpc_elysianskies]
+  depends_on = [module.vpc_lab]
 }
 
-module "firewall_elysianskies" {
+module "firewall_lab" {
   source = "../modules/firewall"
 
-  firewall_label   = "elysianskies"
+  firewall_label   = local.domain_root
   firewall_linodes = module.instance_portal.instance_id
 
   firewall_inbound = [
@@ -60,7 +60,7 @@ module "firewall_elysianskies" {
   depends_on = [module.instance_portal]
 }
 
-module "domain_elysianskies" {
+module "domain_lab" {
   source = "../modules/domain"
 
   domain_soa_email = local.user_email
@@ -69,18 +69,18 @@ module "domain_elysianskies" {
   domain_records = [
     {
       record_type = "A"
+      name        = ""
+      target      = module.instance_portal.instance_ip_address[0]
+    },
+    {
+      record_type = "A"
       name        = "portal"
       target      = module.instance_portal.instance_ip_address[0]
     },
     {
       record_type = "CNAME"
-      name        = "home"
+      name        = "*"
       target      = "portal.${local.domain_name}"
-    },
-    {
-      record_type = "CNAME"
-      name        = "*.home"
-      target      = "home.${local.domain_name}"
     }
   ]
 
@@ -93,11 +93,13 @@ module "tls_nginx" {
   source = "../modules/tls"
 
   registration_email_address = local.user_email
-  certificate_common_name    = "home.${local.domain_name}"
+  certificate_common_name    = local.domain_name
 
   certificate_subject_alternative_names = [
-    "*.home.${local.domain_name}",
-    "*.docker01-teine.home.${local.domain_name}",
-    "*.docker02-teine.home.${local.domain_name}"
+    "*.${local.domain_name}",
+    "*.mercia-fre.${local.domain_name}",
+    "*.northumbria-fre.${local.domain_name}"
   ]
+
+  depends_on = [module.domain_lab]
 }
