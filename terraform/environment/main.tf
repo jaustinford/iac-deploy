@@ -68,9 +68,18 @@ module "domain_lab" {
 
   domain_records = [
     {
-      record_type = "A"
-      name        = ""
-      target      = module.instance_portal.instance_ip_address[0]
+      record_type = "CNAME"
+      name        = "*"
+      target      = "proxy-ext.${local.domain_name}"
+    },
+    {
+      record_type = "CNAME"
+      name        = "*.proxy-ext"
+      target      = "proxy-ext.${local.domain_name}"
+    },    {
+      record_type = "CNAME"
+      name        = "proxy-ext"
+      target      = "portal.${local.domain_name}"
     },
     {
       record_type = "A"
@@ -78,9 +87,9 @@ module "domain_lab" {
       target      = module.instance_portal.instance_ip_address[0]
     },
     {
-      record_type = "CNAME"
-      name        = "*"
-      target      = "portal.${local.domain_name}"
+      record_type = "A"
+      name        = ""
+      target      = module.instance_portal.instance_ip_address[0]
     }
   ]
 
@@ -97,8 +106,8 @@ module "tls_nginx" {
 
   certificate_subject_alternative_names = [
     "*.${local.domain_name}",
-    "*.mercia-fre.${local.domain_name}",
-    "*.northumbria-fre.${local.domain_name}"
+    "*.proxy-ext.${local.domain_name}",
+    "*.proxy-int.${local.domain_name}"
   ]
 
   depends_on = [module.domain_lab]
