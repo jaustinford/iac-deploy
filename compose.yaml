@@ -6,7 +6,7 @@ services:
   ###########################################################
 
   init:
-    image: docker-hosted.pendragonlab.com/elise/iac-deploy:main
+    image: docker-hosted.proxy-int.pendragonlab.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment init
     profiles:
@@ -35,7 +35,7 @@ services:
   ###########################################################
 
   validate:
-    image: docker-hosted.pendragonlab.com/elise/iac-deploy:main
+    image: docker-hosted.proxy-int.pendragonlab.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment validate
     profiles:
@@ -64,7 +64,7 @@ services:
   ###########################################################
 
   plan:
-    image: docker-hosted.pendragonlab.com/elise/iac-deploy:main
+    image: docker-hosted.proxy-int.pendragonlab.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment plan
     profiles:
@@ -93,7 +93,7 @@ services:
   ###########################################################
 
   apply:
-    image: docker-hosted.pendragonlab.com/elise/iac-deploy:main
+    image: docker-hosted.proxy-int.pendragonlab.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment apply -auto-approve
     profiles:
@@ -122,7 +122,7 @@ services:
   ###########################################################
 
   destroy:
-    image: docker-hosted.pendragonlab.com/elise/iac-deploy:main
+    image: docker-hosted.proxy-int.pendragonlab.com/elise/iac-deploy:main
     entrypoint: |
       terraform
         -chdir=/terraform/environment destroy
@@ -153,7 +153,7 @@ services:
       - iac_deploy
 
   destroy_all:
-    image: docker-hosted.pendragonlab.com/elise/iac-deploy:main
+    image: docker-hosted.proxy-int.pendragonlab.com/elise/iac-deploy:main
     entrypoint: |
       terraform
         -chdir=/terraform/environment destroy
@@ -184,7 +184,7 @@ services:
   ###########################################################
 
   output:
-    image: docker-hosted.pendragonlab.com/elise/iac-deploy:main
+    image: docker-hosted.proxy-int.pendragonlab.com/elise/iac-deploy:main
     entrypoint: |
       terraform -chdir=/terraform/environment output
     profiles:
