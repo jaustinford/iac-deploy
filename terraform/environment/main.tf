@@ -94,8 +94,6 @@ module "domain_lab" {
   ]
 
   tag_ci_pipeline_id = var.tag_ci_pipeline_id
-
-  depends_on = [module.instance_portal]
 }
 
 module "tls_nginx" {

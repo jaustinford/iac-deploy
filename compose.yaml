@@ -126,10 +126,8 @@ services:
     entrypoint: |
       terraform
         -chdir=/terraform/environment destroy
-        -target module.domain_lab
-        -target module.firewall_lab
         -target module.instance_portal
-        -target module.vpc_lab
+        -target module.firewall_lab
         -auto-approve
     profiles:
       - destroy
