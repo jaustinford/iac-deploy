@@ -22,6 +22,7 @@ variable "firewall_inbound" {
   type = list(
     object(
       {
+        action   = string
         protocol = string
         label    = string
         ports    = string

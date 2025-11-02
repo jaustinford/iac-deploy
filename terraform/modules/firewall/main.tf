@@ -17,7 +17,7 @@ resource "linode_firewall" "firewall" {
     for_each = var.firewall_inbound
 
     content {
-      action   = "ACCEPT"
+      action   = inbound.value.action
       protocol = inbound.value.protocol
       label    = inbound.value.label
       ports    = inbound.value.ports
