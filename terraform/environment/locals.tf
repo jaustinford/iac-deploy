@@ -4,7 +4,7 @@ locals {
   user_email  = "j.austin.ford@gmail.com"
 
   deny_cidrs = [
-    # source.as.network #              source.as.organization_name | source.geo.city_name, source.geo.region_name
+    # source.as.network #             source.as.organization_name | source.geo.city_name, source.geo.region_name
 
     # Brazil Nginx flood - October 2025
 
