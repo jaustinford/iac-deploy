@@ -14,6 +14,7 @@ locals {
     "177.8.132.0/22",  #         JET NETWORK TELECOMUNICACAO LTDA | Cubatão, São Paulo
     "177.10.172.0/22", #   Anderson Marcos Coelho e Cia Ltda - ME |
     "177.10.232.0/21", #                          RADAR WISP LTDA | Anápolis, Goiás
-    "179.108.44.0/22"  #                          GD NET SOLUTION |
+    "179.108.44.0/22", #                          GD NET SOLUTION |
+    "200.106.148.0/22" #  Louvetel Comunicacao Comercial SCM Ltda | Campinas, São Paulo
   ]
 }
