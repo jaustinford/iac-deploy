@@ -1,7 +1,7 @@
 resource "linode_firewall" "firewall" {
   label           = "${var.firewall_label}-fw"
-  inbound_policy  = "DROP"
-  outbound_policy = "ACCEPT"
+  inbound_policy  = var.firewall_inbound_policy
+  outbound_policy = var.firewall_outbound_policy
   linodes         = toset(var.firewall_linodes)
   disabled        = var.firewall_disabled
 

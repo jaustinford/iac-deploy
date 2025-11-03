@@ -34,6 +34,18 @@ variable "firewall_inbound" {
   description = "Inbound rules for firewall"
 }
 
+variable "firewall_inbound_policy" {
+  type        = string
+  description = "Firewall Inbound Policy"
+  default     = "DROP"
+}
+
+variable "firewall_outbound_policy" {
+  type        = string
+  description = "Firewall Outbound Policy"
+  default     = "ACCEPT"
+}
+
 ###########################################################
 # tags
 ###########################################################
