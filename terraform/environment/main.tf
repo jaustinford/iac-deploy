@@ -42,25 +42,11 @@ module "firewall_lab" {
 
   firewall_inbound = [
     {
-      action   = "DROP"
-      protocol = "TCP"
-      label    = "openvpnas-drop"
-      ports    = "1194"
-      ipv4     = local.deny_cidrs
-    },
-    {
       action   = "ACCEPT"
       protocol = "TCP"
-      label    = "openvpnas-accept"
+      label    = "vpn-accept"
       ports    = "1194"
       ipv4     = ["0.0.0.0/0"]
-    },
-    {
-      action   = "DROP"
-      protocol = "TCP"
-      label    = "web-drop"
-      ports    = "443"
-      ipv4     = local.deny_cidrs
     },
     {
       action   = "ACCEPT"
