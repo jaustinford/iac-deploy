@@ -9,6 +9,7 @@ locals {
     # Brazil Nginx flood - October 2025
 
     "45.173.24.0/22",   #                        HEXA TELECOM LTDA | Teófilo Otoni, Minas Gerais
+    "45.187.56.0/22",   #	                        BITNET TELECOM | Guarujá, São Paulo
     "45.191.140.0/22",  #                            EZER INTERNET |
     "131.100.72.0/22",  # NETPONTAL PROVEDOR DE INTERNET LTDA - ME | Pontal, São Paulo
     "138.36.108.0/22",  #           Elite Telecomunicacoes LTDA ME | Itamogi, Minas Gerais
