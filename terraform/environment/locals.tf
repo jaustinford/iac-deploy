@@ -15,6 +15,7 @@ locals {
     "177.10.172.0/22", #   Anderson Marcos Coelho e Cia Ltda - ME |
     "177.10.232.0/21", #                          RADAR WISP LTDA | Anápolis, Goiás
     "179.108.44.0/22", #                          GD NET SOLUTION |
+    "190.83.84.0/22",  #             NETCOM TELECOMUNICACOES LTDA | Guarujá, São Paulo
     "200.106.148.0/22" #  Louvetel Comunicacao Comercial SCM Ltda | Campinas, São Paulo
   ]
 }
