@@ -16,6 +16,7 @@ locals {
     "177.10.232.0/21", #                          RADAR WISP LTDA | Anápolis, Goiás
     "179.108.44.0/22", #                          GD NET SOLUTION |
     "190.83.84.0/22",  #             NETCOM TELECOMUNICACOES LTDA | Guarujá, São Paulo
+    "191.37.224.0/21", #       YZO TELECOM TECNOLOGIA EIRELI - ME | Mineiros, Goiás
     "200.106.148.0/22" #  Louvetel Comunicacao Comercial SCM Ltda | Campinas, São Paulo
   ]
 }
