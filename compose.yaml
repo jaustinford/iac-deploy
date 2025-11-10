@@ -177,35 +177,6 @@ services:
     networks:
       - iac_deploy
 
-  ###########################################################
-  # output
-  ###########################################################
-
-  output:
-    image: docker-hosted.proxy-int.pendragonlab.com/elise/iac-deploy:main
-    entrypoint: |
-      terraform -chdir=/terraform/environment output
-    profiles:
-      - output
-
-    environment:
-      - TZ=America/Denver
-      - LINODE_TOKEN=${LINODE_TOKEN}
-
-    volumes:
-      - type: bind
-        source: terraform/environment
-        target: /terraform/environment
-        read_only: false
-
-      - type: volume
-        source: raid_vol
-        target: /tfstate
-        read_only: false
-
-    networks:
-      - iac_deploy
-
 ###########################################################
 # resources
 ###########################################################
