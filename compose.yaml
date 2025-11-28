@@ -7,8 +7,8 @@ services:
 
   init:
     image: docker-hosted.proxy-int.pendragonlab.com/elise/iac-deploy:main
-    entrypoint: |
-      terraform -chdir=/terraform/environment init
+    entrypoint: terraform -chdir=/terraform/environment init
+
     profiles:
       - init
 
@@ -23,12 +23,17 @@ services:
         read_only: false
 
       - type: volume
-        source: raid_vol
+        source: raidvol_green_share
         target: /tfstate
         read_only: false
 
     networks:
       - iac_deploy
+
+    logging:
+      options:
+        max-size: 10m
+        max-file: '10'
 
   ###########################################################
   # validate
@@ -36,8 +41,8 @@ services:
 
   validate:
     image: docker-hosted.proxy-int.pendragonlab.com/elise/iac-deploy:main
-    entrypoint: |
-      terraform -chdir=/terraform/environment validate
+    entrypoint: terraform -chdir=/terraform/environment validate
+
     profiles:
       - validate
 
@@ -52,12 +57,17 @@ services:
         read_only: false
 
       - type: volume
-        source: raid_vol
+        source: raidvol_green_share
         target: /tfstate
         read_only: false
 
     networks:
       - iac_deploy
+
+    logging:
+      options:
+        max-size: 10m
+        max-file: '10'
 
   ###########################################################
   # plan
@@ -65,8 +75,8 @@ services:
 
   plan:
     image: docker-hosted.proxy-int.pendragonlab.com/elise/iac-deploy:main
-    entrypoint: |
-      terraform -chdir=/terraform/environment plan
+    entrypoint: terraform -chdir=/terraform/environment plan
+
     profiles:
       - plan
 
@@ -81,12 +91,17 @@ services:
         read_only: false
 
       - type: volume
-        source: raid_vol
+        source: raidvol_green_share
         target: /tfstate
         read_only: false
 
     networks:
       - iac_deploy
+
+    logging:
+      options:
+        max-size: 10m
+        max-file: '10'
 
   ###########################################################
   # apply
@@ -94,8 +109,8 @@ services:
 
   apply:
     image: docker-hosted.proxy-int.pendragonlab.com/elise/iac-deploy:main
-    entrypoint: |
-      terraform -chdir=/terraform/environment apply -auto-approve
+    entrypoint: terraform -chdir=/terraform/environment apply -auto-approve
+
     profiles:
       - apply
 
@@ -110,12 +125,17 @@ services:
         read_only: false
 
       - type: volume
-        source: raid_vol
+        source: raidvol_green_share
         target: /tfstate
         read_only: false
 
     networks:
       - iac_deploy
+
+    logging:
+      options:
+        max-size: 10m
+        max-file: '10'
 
   ###########################################################
   # destroy
@@ -129,6 +149,7 @@ services:
         -target=module.instance_portal
         -target=module.firewall_lab
         -auto-approve
+
     profiles:
       - destroy
 
@@ -143,12 +164,17 @@ services:
         read_only: false
 
       - type: volume
-        source: raid_vol
+        source: raidvol_green_share
         target: /tfstate
         read_only: false
 
     networks:
       - iac_deploy
+
+    logging:
+      options:
+        max-size: 10m
+        max-file: '10'
 
   destroy_all:
     image: docker-hosted.proxy-int.pendragonlab.com/elise/iac-deploy:main
@@ -156,6 +182,7 @@ services:
       terraform
         -chdir=/terraform/environment destroy
         -auto-approve
+
     profiles:
       - destroy-all
 
@@ -170,28 +197,35 @@ services:
         read_only: false
 
       - type: volume
-        source: raid_vol
+        source: raidvol_green_share
         target: /tfstate
         read_only: false
 
     networks:
       - iac_deploy
 
+    logging:
+      options:
+        max-size: 10m
+        max-file: '10'
+
 ###########################################################
 # resources
 ###########################################################
 
 volumes:
-  raid_vol:
+  raidvol_green_share:
     driver_opts:
       type: cifs
       o: "\
-        username=${RAID_VOL_USERNAME},\
-        password=${RAID_VOL_PASSWORD},\
-        uid=${LOCAL_USER_UID},\
-        gid=${LOCAL_USER_UID},\
+        username=${RAIDVOL_GREEN_SHARE_USERNAME},\
+        password=${RAIDVOL_GREEN_SHARE_PASSWORD},\
+        uid=${RAIDVOL_GREEN_SHARE_UID},\
+        gid=${RAIDVOL_GREEN_SHARE_GID},\
+        dir_mode=0770,\
+        file_mode=0770,\
         iocharset=utf8"
-      device: //${RAID_VOL_HOST}/${RAID_VOL_SHARE}
+      device: //${RAIDVOL_GREEN_SHARE_HOST}/${RAIDVOL_GREEN_SHARE_NAME}
 
 networks:
   iac_deploy:
