@@ -14,9 +14,13 @@ services:
 
     environment:
       - TZ=America/Denver
-      - LINODE_TOKEN=${LINODE_TOKEN}
 
     volumes:
+      - type: bind
+        source: approle
+        target: /approle
+        read_only: true
+
       - type: bind
         source: terraform/environment
         target: /terraform/environment
@@ -48,9 +52,13 @@ services:
 
     environment:
       - TZ=America/Denver
-      - LINODE_TOKEN=${LINODE_TOKEN}
 
     volumes:
+      - type: bind
+        source: approle
+        target: /approle
+        read_only: true
+
       - type: bind
         source: terraform/environment
         target: /terraform/environment
@@ -82,9 +90,13 @@ services:
 
     environment:
       - TZ=America/Denver
-      - LINODE_TOKEN=${LINODE_TOKEN}
 
     volumes:
+      - type: bind
+        source: approle
+        target: /approle
+        read_only: true
+
       - type: bind
         source: terraform/environment
         target: /terraform/environment
@@ -116,9 +128,13 @@ services:
 
     environment:
       - TZ=America/Denver
-      - LINODE_TOKEN=${LINODE_TOKEN}
 
     volumes:
+      - type: bind
+        source: approle
+        target: /approle
+        read_only: true
+
       - type: bind
         source: terraform/environment
         target: /terraform/environment
@@ -155,9 +171,13 @@ services:
 
     environment:
       - TZ=America/Denver
-      - LINODE_TOKEN=${LINODE_TOKEN}
 
     volumes:
+      - type: bind
+        source: approle
+        target: /approle
+        read_only: true
+
       - type: bind
         source: terraform/environment
         target: /terraform/environment
@@ -188,9 +208,13 @@ services:
 
     environment:
       - TZ=America/Denver
-      - LINODE_TOKEN=${LINODE_TOKEN}
 
     volumes:
+      - type: bind
+        source: approle
+        target: /approle
+        read_only: true
+
       - type: bind
         source: terraform/environment
         target: /terraform/environment
