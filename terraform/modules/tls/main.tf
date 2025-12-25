@@ -20,3 +20,16 @@ resource "acme_certificate" "certificate" {
 
   depends_on = [acme_registration.registration]
 }
+
+resource "vault_kv_secret_v2" "kv_secret_v2" {
+  mount = "lab/kv"
+  name  = "certificates/nginx"
+
+  data_json = jsonencode(
+    {
+      CERT_PEM_B64 = base64encode(acme_certificate.certificate.certificate_pem),
+      CA_PEM_B64   = base64encode(acme_certificate.certificate.issuer_pem),
+      KEY_PEM_B64  = base64encode(acme_certificate.certificate.private_key_pem)
+    }
+  )
+}
