@@ -1,5 +1,5 @@
 data "vault_generic_secret" "generic_secret_ansible" {
-  path = "lab/kv/ssh/ansible"
+  path = "lab/kv/containers/iac_configure/ssh"
 }
 
 data "tls_public_key" "public_key" {

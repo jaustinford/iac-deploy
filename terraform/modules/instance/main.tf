@@ -3,7 +3,7 @@ data "vault_generic_secret" "generic_secret_linode" {
 }
 
 data "vault_generic_secret" "generic_secret_terraform" {
-  path = "lab/kv/ssh/terraform"
+  path = "lab/kv/containers/iac_deploy/ssh"
 }
 
 resource "random_password" "root_password" {
