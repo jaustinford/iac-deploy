@@ -16,6 +16,11 @@ terraform {
       source  = "vancluever/acme"
       version = "2.29.0"
     }
+
+    tls = {
+      source  = "hashicorp/tls"
+      version = "4.0.6"
+    }
   }
 }
 
