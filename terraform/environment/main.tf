@@ -1,3 +1,13 @@
+data "vault_generic_secret" "generic_secret_ansible" {
+  path = "lab/kv/ssh/ansible"
+}
+
+data "tls_public_key" "public_key" {
+  private_key_openssh = base64decode(
+    data.vault_generic_secret.generic_secret_ansible.data["KEY_OPENSSH_B64"]
+  )
+}
+
 module "vpc_lab" {
   source = "../modules/vpc"
 
@@ -19,15 +29,12 @@ module "instance_portal" {
     }
   ]
 
-  instance_disk_authorized_keys = split(
-    "\n",
-    templatefile(
-      "${path.module}/templates/authorized_keys",
-      {
-        domain_name = local.domain_name
-      }
-    )
-  )
+  persisted_metadata_host = "192.168.40.4"
+  persisted_metadata_user = "merlin"
+
+  instance_disk_authorized_keys = [
+    "${chomp(data.tls_public_key.public_key.public_key_openssh)} ansible-ssh@${local.domain_name}"
+  ]
 
   tag_ci_pipeline_id = var.tag_ci_pipeline_id
 

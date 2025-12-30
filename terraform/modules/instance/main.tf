@@ -1,3 +1,11 @@
+data "vault_generic_secret" "generic_secret_linode" {
+  path = "lab/kv/users/superuser/linode"
+}
+
+data "vault_generic_secret" "generic_secret_terraform" {
+  path = "lab/kv/ssh/terraform"
+}
+
 resource "random_password" "root_password" {
   count = var.instance_count
 
@@ -75,7 +83,7 @@ resource "linode_instance_disk" "boot_disk" {
   image      = var.instance_disk_boot_image
 
   authorized_keys = var.instance_disk_authorized_keys
-  root_pass       = random_password.root_password[count.index].result
+  root_pass       = data.vault_generic_secret.generic_secret_linode.data["PORTAL"]
 
 }
 
@@ -172,4 +180,40 @@ resource "linode_placement_group_assignment" "placement_group_assignment" {
 
   placement_group_id = linode_placement_group.placement_group[0].id
   linode_id          = linode_instance.instance[count.index].id
+}
+
+###########################################################
+# ssh_copy
+###########################################################
+
+resource "local_file" "instance_data_file" {
+  count = var.instance_count
+
+  content = jsonencode(
+    {
+      id         = linode_instance.instance[count.index].id
+      ip_address = linode_instance.instance[count.index].ip_address
+    }
+  )
+
+  filename = "/tmp/${linode_instance.instance[count.index].label}.json"
+}
+
+resource "null_resource" "persisted_metadata" {
+  count = var.instance_count
+
+  connection {
+    type = "ssh"
+    host = var.persisted_metadata_host
+    user = var.persisted_metadata_user
+    
+    private_key = base64decode(
+      data.vault_generic_secret.generic_secret_terraform.data["KEY_OPENSSH_B64"]
+    )
+  }
+
+  provisioner "file" {
+    source      = "/tmp/${linode_instance.instance[count.index].label}.json"
+    destination = "/home/merlin/${linode_instance.instance[count.index].label}.json"
+  }
 }

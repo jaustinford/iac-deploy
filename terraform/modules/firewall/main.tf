@@ -1,3 +1,7 @@
+data "http" "wan_ip" {  
+  url = "http://ifconfig.me/ip"
+}
+
 resource "linode_firewall" "firewall" {
   label           = "${var.firewall_label}-fw"
   inbound_policy  = var.firewall_inbound_policy
