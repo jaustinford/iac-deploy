@@ -7,7 +7,7 @@ variable "tag_ci_pipeline_id" {
 variable "vault_token" {
   type        = bool
   description = "Provide Linode token at runtime"
-  default     = false
+  default     = true
 }
 
 variable "vault_addr" {
