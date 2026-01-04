@@ -55,5 +55,5 @@ ephemeral "vault_kv_secret_v2" "linode_api_token" {
 }
 
 provider "linode" {
-  token = file("/root/linode_token")
+  token = data.local_sensitive_file.linode_token.content
 }
