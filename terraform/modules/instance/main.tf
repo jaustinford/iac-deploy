@@ -1,11 +1,3 @@
-data "vault_generic_secret" "generic_secret_linode" {
-  path = "lab/kv/users/superuser/linode"
-}
-
-data "vault_generic_secret" "generic_secret_terraform" {
-  path = "lab/kv/containers/iac_deploy/ssh"
-}
-
 resource "random_password" "root_password" {
   count = var.instance_count
 
@@ -83,7 +75,7 @@ resource "linode_instance_disk" "boot_disk" {
   image      = var.instance_disk_boot_image
 
   authorized_keys = var.instance_disk_authorized_keys
-  root_pass       = data.vault_generic_secret.generic_secret_linode.data["PORTAL"]
+  root_pass       = random_password.root_password[count.index].result
 
 }
 
@@ -207,13 +199,11 @@ resource "null_resource" "persisted_metadata" {
     host = var.persisted_metadata_host
     user = var.persisted_metadata_user
     
-    private_key = base64decode(
-      data.vault_generic_secret.generic_secret_terraform.data["KEY_OPENSSH_B64"]
-    )
+    private_key = file("/root/iac-deploy.key")
   }
 
   provisioner "file" {
     source      = "/tmp/${linode_instance.instance[count.index].label}.json"
-    destination = "/home/merlin/${linode_instance.instance[count.index].label}.json"
+    destination = "/home/${var.persisted_metadata_user}/${linode_instance.instance[count.index].label}.json"
   }
 }

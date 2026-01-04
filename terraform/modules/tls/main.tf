@@ -21,9 +21,10 @@ resource "acme_certificate" "certificate" {
   depends_on = [acme_registration.registration]
 }
 
-resource "vault_kv_secret_v2" "kv_secret_v2" {
-  mount = "lab/kv"
-  name  = "certificates/nginx"
+resource "vault_generic_secret" "generic_secret" {
+  count = var.module_linode_token == "" ? 1 : 0
+
+  path  = "lab/kv/certificates/nginx"
 
   data_json = jsonencode(
     {

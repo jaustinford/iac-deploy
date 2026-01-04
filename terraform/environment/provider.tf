@@ -21,6 +21,11 @@ terraform {
       source  = "hashicorp/tls"
       version = "4.0.6"
     }
+
+    http = {
+      source  = "hashicorp/http"
+      version = "3.4.5"
+    }
   }
 }
 
@@ -28,24 +33,32 @@ provider "acme" {
   server_url = "https://acme-v02.api.letsencrypt.org/directory"
 }
 
-provider "vault" {
-  address = "https://access.proxy-int.pendragonlab.com"
+data "http" "approle_login" {
+  count = var.linode_token == "" ? 1 : 0
 
-  auth_login {
-    path = "auth/approle/login"
+  url    = "${var.vault_addr}/v1/auth/approle/login"
+  method = "POST"
 
-    parameters = {
+  request_body = jsonencode(
+    {
       role_id   = jsondecode(file("/approle/iac-deploy.json"))["role_id"]
       secret_id = jsondecode(file("/approle/iac-deploy.json"))["secret_id"]
     }
-  }
+  )
+}
+
+provider "vault" {
+  token   = var.linode_token == "" ? jsondecode(data.http.approle_login[0].response_body)["auth"]["client_token"] : ""
+  address = var.vault_addr
 }
 
 ephemeral "vault_kv_secret_v2" "linode_api_token" {
+  count = var.linode_token == "" ? 1 : 0
+
   name  = "external/linode"
   mount = "lab/kv"
 }
 
 provider "linode" {
-  token  = ephemeral.vault_kv_secret_v2.linode_api_token.data["API_TOKEN"]
+  token  = var.linode_token == "" ? ephemeral.vault_kv_secret_v2.linode_api_token[0].data["API_TOKEN"] : var.linode_token
 }

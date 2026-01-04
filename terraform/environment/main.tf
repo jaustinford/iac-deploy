@@ -1,18 +1,8 @@
-data "vault_generic_secret" "generic_secret_ansible" {
-  path = "lab/kv/containers/iac_configure/ssh"
-}
-
-data "tls_public_key" "public_key" {
-  private_key_openssh = base64decode(
-    data.vault_generic_secret.generic_secret_ansible.data["KEY_OPENSSH_B64"]
-  )
-}
-
 module "vpc_lab" {
   source = "../modules/vpc"
 
   vpc_label       = local.domain_root
-  vpc_subnet_ipv4 = "192.168.80.0/29"
+  vpc_subnet_ipv4 = local.vpc_subnet_ipv4
 }
 
 module "instance_portal" {
@@ -29,12 +19,10 @@ module "instance_portal" {
     }
   ]
 
-  persisted_metadata_host = "192.168.40.4"
-  persisted_metadata_user = "merlin"
+  persisted_metadata_host = local.iac.host
+  persisted_metadata_user = local.iac.user
 
-  instance_disk_authorized_keys = [
-    "${chomp(data.tls_public_key.public_key.public_key_openssh)} ansible-ssh@${local.domain_name}"
-  ]
+  instance_disk_authorized_keys = [local.iac.ssh_key]
 
   tag_ci_pipeline_id = var.tag_ci_pipeline_id
 
@@ -121,6 +109,8 @@ module "domain_lab" {
 
 module "tls_nginx" {
   source = "../modules/tls"
+
+  module_linode_token = var.linode_token
 
   registration_email_address = local.user_email
   certificate_common_name    = local.domain_name

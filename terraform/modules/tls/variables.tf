@@ -28,3 +28,8 @@ variable "certificate_min_days_remaining" {
   description = "Minimum number of days until renewal is attempted"
   default     = 30
 }
+
+variable "module_linode_token" {
+  type        = string
+  description = "Provide Linode token at runtime"
+}

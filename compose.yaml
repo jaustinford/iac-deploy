@@ -14,11 +14,17 @@ services:
 
     environment:
       - TZ=America/Denver
+      - TF_VAR_vault_addr=${VAULT_ADDR}
 
     volumes:
       - type: bind
         source: approle
         target: /approle
+        read_only: true
+
+      - type: bind
+        source: ${USER_KEYFILE}
+        target: /root/iac-deploy.key
         read_only: true
 
       - type: bind
@@ -52,11 +58,17 @@ services:
 
     environment:
       - TZ=America/Denver
+      - TF_VAR_vault_addr=${VAULT_ADDR}
 
     volumes:
       - type: bind
         source: approle
         target: /approle
+        read_only: true
+
+      - type: bind
+        source: ${USER_KEYFILE}
+        target: /root/iac-deploy.key
         read_only: true
 
       - type: bind
@@ -90,11 +102,17 @@ services:
 
     environment:
       - TZ=America/Denver
+      - TF_VAR_vault_addr=${VAULT_ADDR}
 
     volumes:
       - type: bind
         source: approle
         target: /approle
+        read_only: true
+
+      - type: bind
+        source: ${USER_KEYFILE}
+        target: /root/iac-deploy.key
         read_only: true
 
       - type: bind
@@ -128,11 +146,17 @@ services:
 
     environment:
       - TZ=America/Denver
+      - TF_VAR_TF_VAR_vault_addr=${VAULT_ADDR}
 
     volumes:
       - type: bind
         source: approle
         target: /approle
+        read_only: true
+
+      - type: bind
+        source: ${USER_KEYFILE}
+        target: /root/iac-deploy.key
         read_only: true
 
       - type: bind
@@ -166,11 +190,17 @@ services:
 
     environment:
       - TZ=America/Denver
+      - TF_VAR_vault_addr=${VAULT_ADDR}
 
     volumes:
       - type: bind
         source: approle
         target: /approle
+        read_only: true
+
+      - type: bind
+        source: ${USER_KEYFILE}
+        target: /root/iac-deploy.key
         read_only: true
 
       - type: bind
@@ -209,11 +239,17 @@ services:
 
     environment:
       - TZ=America/Denver
+      - TF_VAR_vault_addr=${VAULT_ADDR}
 
     volumes:
       - type: bind
         source: approle
         target: /approle
+        read_only: true
+
+      - type: bind
+        source: ${USER_KEYFILE}
+        target: /root/iac-deploy.key
         read_only: true
 
       - type: bind
@@ -246,11 +282,17 @@ services:
 
     environment:
       - TZ=America/Denver
+      - TF_VAR_vault_addr=${VAULT_ADDR}
 
     volumes:
       - type: bind
         source: approle
         target: /approle
+        read_only: true
+
+      - type: bind
+        source: ${USER_KEYFILE}
+        target: /root/iac-deploy.key
         read_only: true
 
       - type: bind
