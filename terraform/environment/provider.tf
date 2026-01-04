@@ -21,11 +21,6 @@ terraform {
       source  = "hashicorp/http"
       version = "3.4.5"
     }
-
-    local = {
-      source  = "hashicorp/local"
-      version = "2.6.1"
-    }
   }
 }
 
