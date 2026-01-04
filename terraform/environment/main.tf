@@ -110,7 +110,9 @@ module "domain_lab" {
 module "tls_nginx" {
   source = "../modules/tls"
 
-  module_linode_token = var.linode_token
+  module_linode_token = var.linode_token == "" ? ephemeral.vault_kv_secret_v2.linode_api_token[0].data["API_TOKEN"] : var.linode_token
+
+  vault_token = true
 
   registration_email_address = local.user_email
   certificate_common_name    = local.domain_name

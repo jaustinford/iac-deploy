@@ -16,13 +16,17 @@ resource "acme_certificate" "certificate" {
 
   dns_challenge {
     provider = "linode"
+
+    config = {
+      LINODE_TOKEN = var.module_linode_token
+    }
   }
 
   depends_on = [acme_registration.registration]
 }
 
 resource "vault_generic_secret" "generic_secret" {
-  count = var.module_linode_token == "" ? 1 : 0
+  count = var.vault_token ? 1 : 0
 
   path  = "lab/kv/certificates/nginx"
 

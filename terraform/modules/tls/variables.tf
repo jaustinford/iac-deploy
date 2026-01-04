@@ -33,3 +33,9 @@ variable "module_linode_token" {
   type        = string
   description = "Provide Linode token at runtime"
 }
+
+variable "vault_token" {
+  type        = bool
+  description = "Is token from Vault"
+  default     = false
+}
