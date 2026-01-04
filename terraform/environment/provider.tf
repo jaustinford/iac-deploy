@@ -53,3 +53,5 @@ ephemeral "vault_kv_secret_v2" "linode_api_token" {
   name  = "external/linode"
   mount = "lab/kv"
 }
+
+provider "linode" {}
