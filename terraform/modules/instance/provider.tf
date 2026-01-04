@@ -7,11 +7,6 @@ terraform {
       version = "2.32.0"
     }
 
-    vault = {
-      source  = "hashicorp/vault"
-      version = ">= 3.0.0"
-    }
-
     null = {
       source  = "hashicorp/null"
       version = "3.2.4"
