@@ -4,10 +4,10 @@ variable "tag_ci_pipeline_id" {
   default     = "deployed locally"
 }
 
-variable "linode_token" {
-  type        = string
+variable "vault_token" {
+  type        = bool
   description = "Provide Linode token at runtime"
-  default     = ""
+  default     = false
 }
 
 variable "vault_addr" {

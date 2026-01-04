@@ -110,7 +110,7 @@ module "domain_lab" {
 module "tls_nginx" {
   source = "../modules/tls"
 
-  vault_token = true
+  vault_token = var.vault_token
 
   registration_email_address = local.user_email
   certificate_common_name    = local.domain_name
