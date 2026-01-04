@@ -18,7 +18,7 @@ resource "acme_certificate" "certificate" {
     provider = "linode"
 
     config = {
-      LINODE_TOKEN_FILE = "/tmp/linode_token"
+      LINODE_TOKEN_FILE = "/root/linode_token"
     }
   }
 

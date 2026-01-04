@@ -72,6 +72,11 @@ services:
         read_only: true
 
       - type: bind
+        source: ${USER_TOKENFILE}
+        target: /root/linode_token
+        read_only: true
+
+      - type: bind
         source: terraform/environment
         target: /terraform/environment
         read_only: false
