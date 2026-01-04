@@ -1,7 +1,3 @@
-data "local_sensitive_file" "linode_token" {
-  filename = "/root/linode_token"
-}
-
 module "vpc_lab" {
   source = "../modules/vpc"
 

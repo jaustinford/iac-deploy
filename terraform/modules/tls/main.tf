@@ -1,7 +1,3 @@
-data "local_sensitive_file" "linode_token" {
-  filename = "/root/linode_token"
-}
-
 resource "tls_private_key" "private_key" {
   algorithm = "RSA"
   rsa_bits  = var.private_key_rsa_bits
@@ -20,10 +16,6 @@ resource "acme_certificate" "certificate" {
 
   dns_challenge {
     provider = "linode"
-
-    config = {
-      LINODE_TOKEN = data.local_sensitive_file.linode_token.content
-    }
   }
 
   depends_on = [acme_registration.registration]

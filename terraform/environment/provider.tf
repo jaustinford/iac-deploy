@@ -21,11 +21,6 @@ terraform {
       source  = "hashicorp/http"
       version = "3.4.5"
     }
-
-    local = {
-      source  = "hashicorp/local"
-      version = "2.6.1"
-    }
   }
 }
 
@@ -57,8 +52,4 @@ ephemeral "vault_kv_secret_v2" "linode_api_token" {
 
   name  = "external/linode"
   mount = "lab/kv"
-}
-
-provider "linode" {
-  token = data.local_sensitive_file.linode_token.content
 }
