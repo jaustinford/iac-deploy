@@ -29,11 +29,6 @@ variable "certificate_min_days_remaining" {
   default     = 30
 }
 
-variable "module_linode_token" {
-  type        = string
-  description = "Provide Linode token at runtime"
-}
-
 variable "vault_token" {
   type        = bool
   description = "Is token from Vault"

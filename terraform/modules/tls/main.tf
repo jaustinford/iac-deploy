@@ -18,7 +18,7 @@ resource "acme_certificate" "certificate" {
     provider = "linode"
 
     config = {
-      LINODE_TOKEN = var.module_linode_token
+      LINODE_TOKEN_FILE = "/tmp/linode_token"
     }
   }
 
@@ -28,7 +28,7 @@ resource "acme_certificate" "certificate" {
 resource "vault_generic_secret" "generic_secret" {
   count = var.vault_token ? 1 : 0
 
-  path  = "lab/kv/certificates/nginx"
+  path = "lab/kv/certificates/nginx"
 
   data_json = jsonencode(
     {

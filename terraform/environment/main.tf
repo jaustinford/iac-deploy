@@ -107,10 +107,13 @@ module "domain_lab" {
   tag_ci_pipeline_id = var.tag_ci_pipeline_id
 }
 
+resource "local_file" "linode_token" {
+  content  = var.linode_token == "" ? ephemeral.vault_kv_secret_v2.linode_api_token[0].data["API_TOKEN"] : var.linode_token
+  filename = "/tmp/linode_token"
+}
+
 module "tls_nginx" {
   source = "../modules/tls"
-
-  module_linode_token = var.linode_token == "" ? ephemeral.vault_kv_secret_v2.linode_api_token[0].data["API_TOKEN"] : var.linode_token
 
   vault_token = true
 
