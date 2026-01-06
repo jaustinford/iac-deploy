@@ -76,7 +76,6 @@ resource "linode_instance_disk" "boot_disk" {
 
   authorized_keys = var.instance_disk_authorized_keys
   root_pass       = random_password.root_password[count.index].result
-
 }
 
 resource "linode_instance_disk" "swap_disk" {

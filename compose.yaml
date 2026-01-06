@@ -226,7 +226,8 @@ services:
       terraform
         -chdir=/terraform/environment destroy
         -target=module.instance_portal
-        -target=module.firewall_lab
+        -target=module.firewall_portal
+        -target=module.record_portal
         -auto-approve
 
     profiles:

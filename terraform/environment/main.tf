@@ -1,3 +1,29 @@
+module "domain_lab" {
+  source = "../modules/domain"
+
+  domain_soa_email = local.user_email
+  domain_domain    = local.domain_name
+
+  tag_ci_pipeline_id = var.tag_ci_pipeline_id
+}
+
+module "tls_nginx" {
+  source = "../modules/tls"
+
+  vault_token = var.vault_token
+
+  registration_email_address = local.user_email
+  certificate_common_name    = local.domain_name
+
+  certificate_subject_alternative_names = [
+    "*.${local.domain_name}",
+    "*.proxy-ext.${local.domain_name}",
+    "*.proxy-int.${local.domain_name}"
+  ]
+
+  depends_on = [module.domain_lab]
+}
+
 module "vpc_lab" {
   source = "../modules/vpc"
 
@@ -29,7 +55,7 @@ module "instance_portal" {
   depends_on = [module.vpc_lab]
 }
 
-module "firewall_lab" {
+module "firewall_portal" {
   source = "../modules/firewall"
 
   firewall_label   = local.domain_root
@@ -71,11 +97,10 @@ module "firewall_lab" {
   depends_on = [module.instance_portal]
 }
 
-module "domain_lab" {
-  source = "../modules/domain"
+module "record_portal" {
+  source = "../modules/record"
 
-  domain_soa_email = local.user_email
-  domain_domain    = local.domain_name
+  records_domain_id = module.domain_lab.domain_id
 
   domain_records = [
     {
@@ -104,22 +129,8 @@ module "domain_lab" {
     }
   ]
 
-  tag_ci_pipeline_id = var.tag_ci_pipeline_id
-}
-
-module "tls_nginx" {
-  source = "../modules/tls"
-
-  vault_token = var.vault_token
-
-  registration_email_address = local.user_email
-  certificate_common_name    = local.domain_name
-
-  certificate_subject_alternative_names = [
-    "*.${local.domain_name}",
-    "*.proxy-ext.${local.domain_name}",
-    "*.proxy-int.${local.domain_name}"
+  depends_on = [
+    module.domain_lab,
+    module.instance_portal
   ]
-
-  depends_on = [module.domain_lab]
 }

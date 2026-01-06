@@ -28,14 +28,14 @@ output "instance_portal_boot_disk_encryption" {
   value       = module.instance_portal.instance_disk_boot_disk_encryption
 }
 
-output "firewall_lab_firewall_id" {
+output "firewall_portal_firewall_id" {
   description = "Lab firewall ID"
-  value       = module.firewall_lab.firewall_id
+  value       = module.firewall_portal.firewall_id
 }
 
-output "firewall_lab_firewall_status" {
+output "firewall_portal_firewall_status" {
   description = "Lab firewall status"
-  value       = module.firewall_lab.firewall_status
+  value       = module.firewall_portal.firewall_status
 }
 
 output "domain_lab_domain_status" {

@@ -18,20 +18,6 @@ variable "domain_soa_email" {
   description = "Start-of-Authority email for DNS domain"
 }
 
-variable "domain_records" {
-  type = list(
-    object(
-      {
-        record_type = string
-        name        = string
-        target      = string
-      }
-    )
-  )
-
-  description = "List of domain records"
-}
-
 ###########################################################
 # tags
 ###########################################################
