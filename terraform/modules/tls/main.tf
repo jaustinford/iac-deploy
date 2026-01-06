@@ -16,6 +16,10 @@ resource "acme_certificate" "certificate" {
 
   dns_challenge {
     provider = "linode"
+
+    config = {
+      LINODE_TOKEN = chomp(file("/automation/linode-token"))
+    }
   }
 
   depends_on = [acme_registration.registration]
