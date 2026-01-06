@@ -112,7 +112,8 @@ module "record_portal" {
       record_type = "CNAME"
       name        = "*.proxy-ext"
       target      = "proxy-ext.${local.domain_name}"
-    },    {
+    },
+    {
       record_type = "CNAME"
       name        = "proxy-ext"
       target      = "portal.${local.domain_name}"
