@@ -45,9 +45,6 @@ module "instance_portal" {
     }
   ]
 
-  persisted_metadata_host = local.iac.host
-  persisted_metadata_user = local.iac.user
-
   instance_disk_authorized_keys = [local.iac.ssh_key]
 
   tag_ci_pipeline_id = var.tag_ci_pipeline_id

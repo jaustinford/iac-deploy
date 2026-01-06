@@ -269,20 +269,6 @@ variable "instance_placement_group_policy" {
 }
 
 ###########################################################
-# module - persisted_metadata
-###########################################################
-
-variable "persisted_metadata_host" {
-  type        = string
-  description = "Host for SSH Copy steps"
-}
-
-variable "persisted_metadata_user" {
-  type        = string
-  description = "User for SSH Copy steps"
-}
-
-###########################################################
 # tags
 ###########################################################
 

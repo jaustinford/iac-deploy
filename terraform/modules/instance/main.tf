@@ -195,14 +195,20 @@ resource "null_resource" "persisted_metadata" {
 
   connection {
     type = "ssh"
-    host = var.persisted_metadata_host
-    user = var.persisted_metadata_user
+    host = "192.168.40.4"
+    user = "queen"
     
     private_key = chomp(file("/automation/iac-deploy.key"))
   }
 
   provisioner "file" {
     source      = "/tmp/${linode_instance.instance[count.index].label}.json"
-    destination = "/home/${var.persisted_metadata_user}/${linode_instance.instance[count.index].label}.json"
+    destination = "/home/queen/${linode_instance.instance[count.index].label}.json"
+  }
+
+  provisioner "remote-exec" {
+    when = destroy
+
+    inline = ["rm -f /home/queen/pendragonlab*.json"]
   }
 }
