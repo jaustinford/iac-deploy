@@ -14,7 +14,6 @@ services:
 
     environment:
       - TZ=America/Denver
-      - TF_VAR_vault_addr=${VAULT_ADDR}
 
     volumes:
       - type: bind
@@ -23,13 +22,13 @@ services:
         read_only: true
 
       - type: bind
-        source: ${USER_KEYFILE}
-        target: /root/iac-deploy.key
+        source: ${USER_KEYFOLDER}
+        target: /automation
         read_only: true
 
       - type: bind
-        source: terraform/environment
-        target: /terraform/environment
+        source: terraform
+        target: /terraform
         read_only: false
 
       - type: volume
@@ -58,7 +57,6 @@ services:
 
     environment:
       - TZ=America/Denver
-      - TF_VAR_vault_addr=${VAULT_ADDR}
 
     volumes:
       - type: bind
@@ -67,18 +65,13 @@ services:
         read_only: true
 
       - type: bind
-        source: ${USER_KEYFILE}
-        target: /root/iac-deploy.key
+        source: ${USER_KEYFOLDER}
+        target: /automation
         read_only: true
 
       - type: bind
-        source: ${USER_TOKENFILE}
-        target: /root/linode_token
-        read_only: true
-
-      - type: bind
-        source: terraform/environment
-        target: /terraform/environment
+        source: terraform
+        target: /terraform
         read_only: false
 
       - type: volume
@@ -107,7 +100,6 @@ services:
 
     environment:
       - TZ=America/Denver
-      - TF_VAR_vault_addr=${VAULT_ADDR}
 
     volumes:
       - type: bind
@@ -116,13 +108,13 @@ services:
         read_only: true
 
       - type: bind
-        source: ${USER_KEYFILE}
-        target: /root/iac-deploy.key
+        source: ${USER_KEYFOLDER}
+        target: /automation
         read_only: true
 
       - type: bind
-        source: terraform/environment
-        target: /terraform/environment
+        source: terraform
+        target: /terraform
         read_only: false
 
       - type: volume
@@ -151,7 +143,6 @@ services:
 
     environment:
       - TZ=America/Denver
-      - TF_VAR_TF_VAR_vault_addr=${VAULT_ADDR}
 
     volumes:
       - type: bind
@@ -160,13 +151,13 @@ services:
         read_only: true
 
       - type: bind
-        source: ${USER_KEYFILE}
-        target: /root/iac-deploy.key
+        source: ${USER_KEYFOLDER}
+        target: /automation
         read_only: true
 
       - type: bind
-        source: terraform/environment
-        target: /terraform/environment
+        source: terraform
+        target: /terraform
         read_only: false
 
       - type: volume
@@ -195,7 +186,6 @@ services:
 
     environment:
       - TZ=America/Denver
-      - TF_VAR_vault_addr=${VAULT_ADDR}
 
     volumes:
       - type: bind
@@ -204,13 +194,13 @@ services:
         read_only: true
 
       - type: bind
-        source: ${USER_KEYFILE}
-        target: /root/iac-deploy.key
+        source: ${USER_KEYFOLDER}
+        target: /automation
         read_only: true
 
       - type: bind
-        source: terraform/environment
-        target: /terraform/environment
+        source: terraform
+        target: /terraform
         read_only: false
 
       - type: volume
@@ -244,7 +234,6 @@ services:
 
     environment:
       - TZ=America/Denver
-      - TF_VAR_vault_addr=${VAULT_ADDR}
 
     volumes:
       - type: bind
@@ -253,13 +242,13 @@ services:
         read_only: true
 
       - type: bind
-        source: ${USER_KEYFILE}
-        target: /root/iac-deploy.key
+        source: ${USER_KEYFOLDER}
+        target: /automation
         read_only: true
 
       - type: bind
-        source: terraform/environment
-        target: /terraform/environment
+        source: terraform
+        target: /terraform
         read_only: false
 
       - type: volume
@@ -287,7 +276,6 @@ services:
 
     environment:
       - TZ=America/Denver
-      - TF_VAR_vault_addr=${VAULT_ADDR}
 
     volumes:
       - type: bind
@@ -296,13 +284,13 @@ services:
         read_only: true
 
       - type: bind
-        source: ${USER_KEYFILE}
-        target: /root/iac-deploy.key
+        source: ${USER_KEYFOLDER}
+        target: /automation
         read_only: true
 
       - type: bind
-        source: terraform/environment
-        target: /terraform/environment
+        source: terraform
+        target: /terraform
         read_only: false
 
       - type: volume

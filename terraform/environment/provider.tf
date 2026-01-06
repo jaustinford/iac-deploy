@@ -54,4 +54,6 @@ ephemeral "vault_kv_secret_v2" "linode_api_token" {
   mount = "lab/kv"
 }
 
-provider "linode" {}
+provider "linode" {
+  token = chomp(file("/automation/linode-token"))
+}

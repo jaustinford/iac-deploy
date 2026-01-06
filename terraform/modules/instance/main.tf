@@ -199,7 +199,7 @@ resource "null_resource" "persisted_metadata" {
     host = var.persisted_metadata_host
     user = var.persisted_metadata_user
     
-    private_key = file("/root/iac-deploy.key")
+    private_key = chomp(file("/automation/iac-deploy.key"))
   }
 
   provisioner "file" {
