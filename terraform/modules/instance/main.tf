@@ -203,12 +203,18 @@ resource "null_resource" "persisted_metadata" {
 
   provisioner "file" {
     source      = "/tmp/${linode_instance.instance[count.index].label}.json"
-    destination = "/home/queen/${linode_instance.instance[count.index].label}.json"
+    destination = "/castle/automation/${linode_instance.instance[count.index].label}.json"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod 640 /castle/automation/${linode_instance.instance[count.index].label}.json"
+    ]
   }
 
   provisioner "remote-exec" {
     when = destroy
 
-    inline = ["rm -f /home/queen/pendragonlab*.json"]
+    inline = ["rm -f /castle/automation/pendragonlab*.json"]
   }
 }
