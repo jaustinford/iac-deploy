@@ -1,7 +1,7 @@
 module "domain_lab" {
   source = "../modules/domain"
 
-  domain_soa_email = local.user_email
+  domain_soa_email = local.svc_email
   domain_domain    = local.domain_name
 
   tag_ci_pipeline_id = var.tag_ci_pipeline_id
@@ -12,7 +12,7 @@ module "tls_nginx" {
 
   vault_token = var.vault_token
 
-  registration_email_address = local.user_email
+  registration_email_address = local.svc_email
   certificate_common_name    = local.domain_name
 
   certificate_subject_alternative_names = [
