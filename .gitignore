@@ -1,3 +1,2 @@
-env/.env-secrets
 terraform/environment/.terraform
 terraform/environment/.terraform.lock.hcl
