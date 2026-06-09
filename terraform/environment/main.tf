@@ -86,6 +86,20 @@ module "firewall_portal" {
       label    = "web-accept"
       ports    = "443"
       ipv4     = ["0.0.0.0/0"]
+    },
+    {
+      action   = "DROP"
+      protocol = "TCP"
+      label    = "gitlab-drop"
+      ports    = "32514"
+      ipv4     = local.drop_cidrs
+    },
+    {
+      action   = "ACCEPT"
+      protocol = "TCP"
+      label    = "gitlab-accept"
+      ports    = "32514"
+      ipv4     = ["0.0.0.0/0"]
     }
   ]
 
