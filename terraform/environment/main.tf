@@ -91,14 +91,14 @@ module "firewall_portal" {
       action   = "DROP"
       protocol = "TCP"
       label    = "gitlab-drop"
-      ports    = "32514"
+      ports    = "32515"
       ipv4     = local.drop_cidrs
     },
     {
       action   = "ACCEPT"
       protocol = "TCP"
       label    = "gitlab-accept"
-      ports    = "32514"
+      ports    = "32515"
       ipv4     = ["0.0.0.0/0"]
     }
   ]
