@@ -29,6 +29,12 @@ variable "certificate_min_days_remaining" {
   default     = 30
 }
 
+variable "certificate_pre_check_delay" {
+  type        = number
+  description = "Number of seconds to wait until DNS check"
+  default     = 30
+}
+
 variable "vault_token" {
   type        = bool
   description = "Is token from Vault"

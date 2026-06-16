@@ -13,6 +13,7 @@ resource "acme_certificate" "certificate" {
   common_name               = var.certificate_common_name
   subject_alternative_names = var.certificate_subject_alternative_names
   min_days_remaining        = var.certificate_min_days_remaining
+  pre_check_delay           = var.certificate_pre_check_delay
 
   dns_challenge {
     provider = "linode"

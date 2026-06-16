@@ -1,8 +1,5 @@
-resource "random_password" "root_password" {
-  count = var.instance_count
-
-  length  = var.root_password_length
-  special = var.root_password_special
+data "vault_generic_secret" "generic_secret" {
+  path = "lab/kv/users/host/super/portal"
 }
 
 resource "random_string" "name_uuid" {
@@ -75,7 +72,7 @@ resource "linode_instance_disk" "boot_disk" {
   image      = var.instance_disk_boot_image
 
   authorized_keys = var.instance_disk_authorized_keys
-  root_pass       = random_password.root_password[count.index].result
+  root_pass       = data.vault_generic_secret.generic_secret.data["PASSWORD"]
 }
 
 resource "linode_instance_disk" "swap_disk" {
