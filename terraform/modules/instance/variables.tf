@@ -1,20 +1,4 @@
 ###########################################################
-# module - root_password
-###########################################################
-
-variable "root_password_length" {
-  type        = number
-  description = "Character length of root password"
-  default     = 24
-}
-
-variable "root_password_special" {
-  type        = bool
-  description = "Should the root password have special characters"
-  default     = true
-}
-
-###########################################################
 # module - instance - settings
 ###########################################################
 
