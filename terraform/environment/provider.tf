@@ -29,9 +29,9 @@ provider "acme" {
 }
 
 data "http" "approle_login" {
-  count = var.vault_token ? 1 : 0
+  count = var.vault_enabled ? 1 : 0
 
-  url    = "${var.vault_addr}/v1/auth/approle/login"
+  url    = "${local.vault_address}/v1/auth/approle/login"
   method = "POST"
 
   request_body = jsonencode(
@@ -43,15 +43,8 @@ data "http" "approle_login" {
 }
 
 provider "vault" {
-  token   = var.vault_token ? jsondecode(data.http.approle_login[0].response_body)["auth"]["client_token"] : ""
-  address = var.vault_addr
-}
-
-ephemeral "vault_kv_secret_v2" "linode_api_token" {
-  count = var.vault_token ? 1 : 0
-
-  name  = "external/linode"
-  mount = "lab/kv"
+  token   = var.vault_enabled ? jsondecode(data.http.approle_login[0].response_body)["auth"]["client_token"] : ""
+  address = local.vault_address
 }
 
 provider "linode" {

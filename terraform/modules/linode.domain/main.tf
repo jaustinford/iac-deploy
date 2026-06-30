@@ -1,3 +1,7 @@
+##################################################
+# module
+##################################################
+
 resource "linode_domain" "domain" {
   type      = "master"
   ttl_sec   = var.domain_ttl_sec

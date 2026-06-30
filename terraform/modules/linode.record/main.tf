@@ -1,3 +1,7 @@
+##################################################
+# module
+##################################################
+
 resource "linode_domain_record" "domain_records" {
   for_each = {
     for domain_record in var.domain_records : domain_record.name => {

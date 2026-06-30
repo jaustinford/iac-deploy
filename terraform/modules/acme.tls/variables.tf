@@ -1,6 +1,6 @@
-###########################################################
+##################################################
 # module
-###########################################################
+##################################################
 
 variable "private_key_rsa_bits" {
   type        = number
@@ -35,8 +35,11 @@ variable "certificate_pre_check_delay" {
   default     = 30
 }
 
-variable "vault_token" {
+##################################################
+# submodules
+##################################################
+
+variable "vault_enabled" {
   type        = bool
-  description = "Is token from Vault"
-  default     = false
+  description = "Should Vault be used"
 }

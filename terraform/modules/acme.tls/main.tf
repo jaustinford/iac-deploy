@@ -1,3 +1,7 @@
+##################################################
+# module
+##################################################
+
 resource "tls_private_key" "private_key" {
   algorithm = "RSA"
   rsa_bits  = var.private_key_rsa_bits
@@ -26,16 +30,20 @@ resource "acme_certificate" "certificate" {
   depends_on = [acme_registration.registration]
 }
 
-resource "vault_generic_secret" "generic_secret" {
-  count = var.vault_token ? 1 : 0
+##################################################
+# submodules
+##################################################
 
-  path = "lab/kv/certificates/nginx"
+module "generic_secret_certificate" {
+  source = "../vault.secret"
 
-  data_json = jsonencode(
-    {
+  count = var.vault_enabled ? 1 : 0
+
+  generic_secret_path = "certificates/nginx"
+
+  generic_secret_data_json = {
       CERT_PEM_B64 = base64encode(acme_certificate.certificate.certificate_pem),
       CA_PEM_B64   = base64encode(acme_certificate.certificate.issuer_pem),
       KEY_PEM_B64  = base64encode(acme_certificate.certificate.private_key_pem)
     }
-  )
 }

@@ -4,14 +4,7 @@ variable "tag_ci_pipeline_id" {
   default     = "deployed locally"
 }
 
-variable "vault_token" {
+variable "vault_enabled" {
   type        = bool
-  description = "Provide Linode token at runtime"
-  default     = true
-}
-
-variable "vault_addr" {
-  type        = string
-  description = "Address for Vault"
-  default     = "http://192.168.40.1:32503"
+  description = "Should Vault be used"
 }

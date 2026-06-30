@@ -1,5 +1,5 @@
 module "domain_lab" {
-  source = "../modules/domain"
+  source = "../modules/linode.domain"
 
   domain_soa_email = local.svc_email
   domain_domain    = local.domain_name
@@ -8,9 +8,7 @@ module "domain_lab" {
 }
 
 module "tls_nginx" {
-  source = "../modules/tls"
-
-  vault_token = var.vault_token
+  source = "../modules/acme.tls"
 
   registration_email_address = local.svc_email
   certificate_common_name    = local.domain_name
@@ -21,39 +19,25 @@ module "tls_nginx" {
     "*.proxy-int.${local.domain_name}"
   ]
 
+  vault_enabled = var.vault_enabled
+
   depends_on = [module.domain_lab]
 }
 
-module "vpc_lab" {
-  source = "../modules/vpc"
-
-  vpc_label       = local.domain_root
-  vpc_subnet_ipv4 = local.vpc_subnet_ipv4
-}
-
 module "instance_portal" {
-  source = "../modules/instance"
+  source = "../modules/linode.instance"
 
   instance_label = "${local.domain_root}-portal"
 
-  instance_config_private_interfaces = [
-    {
-      purpose   = "vpc"
-      subnet_id = module.vpc_lab.vpc_subnet_id
-      primary   = true
-      vpc_ipv4  = "dhcp"
-    }
-  ]
-
-  instance_disk_authorized_keys = [local.iac.ssh_key]
+  stackscript_iac_user_name           = base64decode(local.iac_user.name)
+  stackscript_iac_user_id             = local.iac_user.id
+  stackscript_iac_user_authorized_key = local.iac_user.authorized_key
 
   tag_ci_pipeline_id = var.tag_ci_pipeline_id
-
-  depends_on = [module.vpc_lab]
 }
 
 module "firewall_portal" {
-  source = "../modules/firewall"
+  source = "../modules/linode.firewall"
 
   firewall_label   = local.domain_root
   firewall_linodes = module.instance_portal.instance_id
@@ -109,7 +93,7 @@ module "firewall_portal" {
 }
 
 module "record_portal" {
-  source = "../modules/record"
+  source = "../modules/linode.record"
 
   records_domain_id = module.domain_lab.domain_id
 

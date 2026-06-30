@@ -1,12 +1,14 @@
-###########################################################
-# module - instance - settings
-###########################################################
+##################################################
+# module - instance
+##################################################
 
 variable "instance_count" {
   type        = number
   description = "Number of instances to deploy"
   default     = 1
 }
+
+# settings
 
 variable "instance_region" {
   type        = string
@@ -85,9 +87,7 @@ variable "instance_disk_encryption" {
   }
 }
 
-###########################################################
-# module - instance - alerting
-###########################################################
+# alerting
 
 variable "instance_alerts_cpu" {
   type        = number
@@ -119,9 +119,7 @@ variable "instance_alerts_io" {
   default     = 10000
 }
 
-###########################################################
-# module - instance - booleans
-###########################################################
+# booleans
 
 variable "instance_private_ip" {
   type        = bool
@@ -141,15 +139,16 @@ variable "instance_watchdog_enabled" {
   default     = true
 }
 
-variable "instance_placement_group_externally_managed" {
-  type        = bool
-  description = "Should the instance be controlled by a placement group"
-  default     = false
+# tags
+
+variable "tag_ci_pipeline_id" {
+  type        = string
+  description = "Tag for CI_PIPELINE_ID"
 }
 
-###########################################################
-# module - instance_disk
-###########################################################
+##################################################
+# module - disks
+##################################################
 
 variable "instance_disk_boot_size" {
   type        = number
@@ -199,64 +198,31 @@ variable "instance_disk_boot_image" {
   }
 }
 
-variable "instance_disk_authorized_keys" {
-  type        = list(string)
-  description = "SSH keys to install into instance"
+# stackscript
+
+variable "stackscript_iac_user_name" {
+  type        = string
+  description = "Name of IAC User"
 }
 
-###########################################################
+variable "stackscript_iac_user_id" {
+  type        = string
+  description = "Id of IAC User"
+}
+
+variable "stackscript_iac_user_authorized_key" {
+  type        = string
+  description = "Authorized key for IAC User"
+}
+
+##################################################
 # module - instance_config
-###########################################################
+##################################################
+
+# storage
 
 variable "instance_config_booted" {
   type        = bool
   description = "Should the instance be running"
   default     = true
-}
-
-variable "instance_config_public_interface" {
-  type        = bool
-  description = "Should the instance have a public interface"
-  default     = true
-}
-
-variable "instance_config_private_interfaces" {
-  type = list(
-    object(
-      {
-        purpose   = string
-        subnet_id = number
-        primary   = bool
-        vpc_ipv4  = string
-      }
-    )
-  )
-
-  description = "Define a list of private interfaces"
-  default     = []
-}
-
-###########################################################
-# module - placement_group
-###########################################################
-
-variable "instance_placement_group_type" {
-  type        = string
-  description = "Assign affinity rules"
-  default     = "anti_affinity:local"
-}
-
-variable "instance_placement_group_policy" {
-  type        = string
-  description = "Assign affinity policy"
-  default     = "strict"
-}
-
-###########################################################
-# tags
-###########################################################
-
-variable "tag_ci_pipeline_id" {
-  type        = string
-  description = "Tag for CI_PIPELINE_ID"
 }
