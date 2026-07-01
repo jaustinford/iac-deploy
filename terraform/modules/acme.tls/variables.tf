@@ -34,12 +34,3 @@ variable "certificate_pre_check_delay" {
   description = "Number of seconds to wait until DNS check"
   default     = 30
 }
-
-##################################################
-# submodules
-##################################################
-
-variable "vault_enabled" {
-  type        = bool
-  description = "Should Vault be used"
-}

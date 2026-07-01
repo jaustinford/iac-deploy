@@ -29,21 +29,3 @@ resource "acme_certificate" "certificate" {
 
   depends_on = [acme_registration.registration]
 }
-
-##################################################
-# submodules
-##################################################
-
-module "generic_secret_certificate" {
-  source = "../vault.secret"
-
-  count = var.vault_enabled ? 1 : 0
-
-  generic_secret_path = "certificates/nginx"
-
-  generic_secret_data_json = {
-      CERT_PEM_B64 = base64encode(acme_certificate.certificate.certificate_pem),
-      CA_PEM_B64   = base64encode(acme_certificate.certificate.issuer_pem),
-      KEY_PEM_B64  = base64encode(acme_certificate.certificate.private_key_pem)
-    }
-}

@@ -1,9 +1,7 @@
 locals {
   domain_name = "pendragonlab.com"
   domain_root = trimsuffix(local.domain_name, ".com")
-
-  svc_email     = "svc.${local.domain_root}@gmail.com"
-  vault_address = "http://192.168.40.1:32503"
+  svc_email   = "svc.${local.domain_root}@gmail.com"
 
   iac_user = {
     name           = "cXVlZW4="

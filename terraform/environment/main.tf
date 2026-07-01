@@ -19,8 +19,6 @@ module "tls_nginx" {
     "*.proxy-int.${local.domain_name}"
   ]
 
-  vault_enabled = var.vault_enabled
-
   depends_on = [module.domain_lab]
 }
 
