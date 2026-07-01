@@ -32,6 +32,8 @@ module "instance_portal" {
   stackscript_iac_user_authorized_key = local.iac_user.authorized_key
 
   tag_ci_pipeline_id = var.tag_ci_pipeline_id
+
+  depends_on = [module.domain_lab]
 }
 
 module "firewall_portal" {
