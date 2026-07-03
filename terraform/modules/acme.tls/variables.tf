@@ -32,5 +32,5 @@ variable "certificate_min_days_remaining" {
 variable "certificate_pre_check_delay" {
   type        = number
   description = "Number of seconds to wait until DNS check"
-  default     = 30
+  default     = 300
 }
